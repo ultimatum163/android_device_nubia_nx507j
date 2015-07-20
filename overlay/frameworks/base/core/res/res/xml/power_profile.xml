@@ -18,9 +18,6 @@
         <value>3.54</value>
     </array>
     <array name="cpu.speeds">
-        <value>96000</value>
-        <value>192000</value>
-        <value>249600</value>
         <value>300000</value>
         <value>384000</value>
         <value>600000</value>

@@ -14,18 +14,18 @@
 # limitations under the License.
 
 # inherit from the proprietary version
--include vendor/ZTE/NX507J/BoardConfigVendor.mk
+-include vendor/zte/nx507j/BoardConfigVendor.mk
 
-LOCAL_PATH := device/ZTE/NX507J
+LOCAL_PATH := device/zte/nx507j
 
 # Thanks list
-TARGET_RELEASETOOLS_EXTENSIONS 	:= device/ZTE/NX507J
+TARGET_RELEASETOOLS_EXTENSIONS := device/zte/nx507j
 
 PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
-	frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
-	frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, $(PRODUCT_COPY_FILES))
+    frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
+    frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, $(PRODUCT_COPY_FILES))
 
-#Disable memcpy_base.S optimization
+# Disable memcpy_base.S optimization
 TARGET_CPU_MEMCPY_BASE_OPT_DISABLE := true
 
 # QCRIL
@@ -37,18 +37,18 @@ TARGET_GLOBAL_CPPFLAGS += -DANDROID_MULTI_SIM
 COMMON_GLOBAL_CFLAGS += -DQCOM_MEDIA_DISABLE_BUFFER_SIZE_CHECK
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := NX507J,j507NX,nx507J,nx507j,NX507j,z7mini,nx507_mini,nx507
+TARGET_OTA_ASSERT_DEVICE := NX507J,nx507j,z7mini
 
 # Partitions
-BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 25165824
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1610612736
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 12738083840
+BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216           # 16MB
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 25165824       # 24MB
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1610612736       # 1.5GB
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 12738083840    # 11.86GB
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/recovery.fstab
 BOARD_VENDOR := zte-qcom
-TARGET_SPECIFIC_HEADER_PATH := device/ZTE/NX507J/include
+TARGET_SPECIFIC_HEADER_PATH := device/zte/nx507j/include
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8974
@@ -92,9 +92,9 @@ BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
-TARGET_KERNEL_SOURCE := kernel/ZTE/NX507J
+TARGET_KERNEL_SOURCE := kernel/zte/nx507j
 TARGET_KERNEL_ARCH := arm
-TARGET_KERNEL_CONFIG := msm8974-NX507J_defconfig
+TARGET_KERNEL_CONFIG := cm-nx507j_defconfig
 TARGET_ZTEMT_DTS := true
 
 # Power
@@ -119,15 +119,15 @@ BLUETOOTH_HCI_USE_MCT := true
 # Enables Adreno RS driver
 BOARD_EGL_CFG := $(LOCAL_PATH)/etc/egl.cfg
 USE_OPENGL_RENDERER := true
-#NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_USES_C2D_COMPOSITION := true
-#TARGET_GRALLOC_USES_ASHMEM := false
 TARGET_USES_ION := true
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 HAVE_ADRENO_SOURCE:= false
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
 TARGET_USES_QCOM_BSP := true
+#NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+#TARGET_GRALLOC_USES_ASHMEM := false
 
 #TARGET_USE_ION_COMPAT := true
 

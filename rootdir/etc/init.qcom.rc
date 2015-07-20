@@ -76,13 +76,6 @@ on early-boot
     write /sys/kernel/boot_adsp/boot 1
 
 on boot
-	 # bring CPUs online
-    write /sys/module/msm_thermal/core_control/enabled 0
-    write /sys/devices/system/cpu/cpu1/online 1
-    write /sys/devices/system/cpu/cpu2/online 1
-    write /sys/devices/system/cpu/cpu3/online 1
-    write /sys/module/msm_thermal/core_control/enabled 1
-
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
@@ -141,6 +134,9 @@ on boot
 
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
+    #For bridgemgr daemon to inform the USB driver of the correct transport
+    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
 
     # For setting tcp delayed ack
     chown system system /sys/kernel/ipv4/tcp_delack_seg
@@ -206,41 +202,6 @@ on boot
 	#lcd-backlight 
 	chown system system /sys/class/leds/lcd-backlight/max_brightness
 	chmod 0666 /sys/class/leds/lcd-backlight/max_brightness
-
-
-    # Enable writing to led blink node from userspace
-    chown system system /sys/class/leds/red/blink
-    chmod 0666 /sys/class/leds/red/blink
-
-    chown system system /sys/class/leds/green/max_brightness
-    chmod 0666 /sys/class/leds/green/max_brightness
-
-    chown system system /sys/class/leds/green/blink
-    chmod 0666 /sys/class/leds/green/blink
-    
-    chown system system /sys/class/leds/red/duty_pcts
-    chmod 0666 /sys/class/leds/red/duty_pcts
-
-    chown system system /sys/class/leds/red/lut_flags
-    chmod 0666 /sys/class/leds/red/lut_flags
-
-    chown system system /sys/class/leds/red/pause_hi
-    chmod 0666 /sys/class/leds/red/pause_hi
-
-    chown system system /sys/class/leds/red/pause_lo
-    chmod 0666 /sys/class/leds/red/pause_lo
-
-    chown system system /sys/class/leds/red/ramp_step_ms
-    chmod 0666 /sys/class/leds/red/ramp_step_ms
-
-    chown system system /sys/class/leds/red/start_idx
-    chmod 0666 /sys/class/leds/red/start_idx
-
-    chown system system /sys/class/leds/red/pwm_us
-    chmod 0666 /sys/class/leds/red/pwm_us
-
-    chown system system /sys/class/kgsl/kgsl-3d0/devfreq/governor
-    chmod 666 /sys/class/kgsl/kgsl-3d0/devfreq/governor
 	
 	#leds-backlight 
 	chown system system /sys/class/leds/led:rgb_green/brightness
@@ -264,7 +225,36 @@ on boot
 	chmod 0666 /sys/class/leds/led:rgb_blue/ramp_step_ms
 	chown system system /sys/class/leds/led:rgb_blue/max_brightness
 	chmod 0666 /sys/class/leds/led:rgb_blue/max_brightness
+	
+	#button-backlight
+	chown root system /sys/class/leds/red/brightness
+	chmod 0666 /sys/class/leds/red/brightness
+	chown root system /sys/class/leds/red/blink
+	chmod 0666 /sys/class/leds/red/blink
+	chown root system /sys/class/leds/red/lut_flags
+	chmod 0666 /sys/class/leds/red/lut_flags
+	chown root system /sys/class/leds/red/pause_hi
+	chmod 0666 /sys/class/leds/red/pause_hi
+	chown root system /sys/class/leds/red/pause_lo
+	chmod 0666 /sys/class/leds/red/pause_lo
+	chown root system /sys/class/leds/red/ramp_step_ms
+	chmod 0666 /sys/class/leds/red/ramp_step_ms
+	chown root system /sys/class/leds/red/duty_pcts
+	chmod 0666 /sys/class/leds/red/duty_pcts
+	chown root system /sys/class/leds/red/max_brightness
+	chmod 0666 /sys/class/leds/red/max_brightness
+	chown root system /sys/class/leds/button-backlight/brightness
+	chmod 0666 /sys/class/leds/button-backlight/brightness
+	chown root system /sys/class/leds/button-backlight/max_brightness
+	chmod 0666 /sys/class/leds/button-backlight/max_brightness
+	chown system system /sys/class/leds/red/pwm_us
+	chmod 0666 /sys/class/leds/red/pwm_us
 
+    chown system system /sys/class/input/input0/wakeup_gesture
+	chmod 0666 /sys/class/input/input0/wakeup_gesture
+    chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/easy_wakeup_gesture
+	chmod 0666 /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/easy_wakeup_gesture
+	
 	#lcd enhance
 	chown system system /sys/kernel/lcd_enhance/disptype
 	chmod 0666 /sys/kernel/lcd_enhance/disptype
@@ -285,23 +275,6 @@ on boot
 
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/timed_output/vibrator/vtg_level
-	
-	# faux sound
-	chown root system  /sys/kernel/sound_control_3/gpl_cam_mic_gain	
-	chown root system  /sys/kernel/sound_control_3/gpl_headphone_gain
-	chown root system  /sys/kernel/sound_control_3/gpl_headphone_pa_gain
-	chown root system  /sys/kernel/sound_control_3/gpl_mic_gain
-	chown root system  /sys/kernel/sound_control_3/gpl_speaker_gain
-	chown root system  /sys/kernel/sound_control_3/gpl_sound_control_version
-	chown root system  /sys/kernel/sound_control_3/gpl_sound_control_locked
-	
-	chmod 0666  /sys/kernel/sound_control_3/gpl_cam_mic_gain	
-	chmod 0666  /sys/kernel/sound_control_3/gpl_headphone_gain
-	chmod 0666  /sys/kernel/sound_control_3/gpl_headphone_pa_gain
-	chmod 0666  /sys/kernel/sound_control_3/gpl_mic_gain
-	chmod 0666  /sys/kernel/sound_control_3/gpl_speaker_gain
-	chmod 0666  /sys/kernel/sound_control_3/gpl_sound_control_version
-	chmod 0666  /sys/kernel/sound_control_3/gpl_sound_control_locked
 	
 	# gamma
 	chown root system  /sys/module/mdss_dsi_ctrl/kgamma_bn
@@ -324,9 +297,6 @@ on boot
     # Torch
     chown system camera /sys/class/leds/led:flash_torch/brightness
     chmod 0660 /sys/class/leds/led:flash_torch/brightness  
-    
-    chown system system /sys/devices/f9924000.i2c/i2c-2/2-005d/wakeup_gesture
-    chmod 0666 /sys/devices/f9924000.i2c/i2c-2/2-005d/wakeup_gesture
     
 # ADDED BY ZTEMT ZhuBing
 	chown root system /sys/class/leds/red/brightness
@@ -415,9 +385,6 @@ on boot
 
 	#mic
 	mkdir /persist/mics 0775 system system
-
-    chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-    chmod 0664 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
     
     #light
     chown system system /sys/class/light/light/enable
@@ -574,116 +541,8 @@ on post-fs-data
     #Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
 
-    #audio_test_related
-    mkdir /persist/mics 0755 system system
-    chown system system /persist/mics
-    chmod 0755 /persist/mics
-    mkdir /persist/audio 0755 system system
-    chown system system /persist/audio
-    chmod 0755 /persist/audio
-
-	#tp_test_related
-	mkdir persist/tp 0775 system system
-	mkdir persist/tp/detect 0775 system system
-
-	#proximity_related
-	mkdir /persist/proxdata 0775 system system
-	chown system system /persist/proxdata
-	chmod 0775 /persist/proxdata
-
-
-    write /proc/sys/vm/dirty_ratio 5
-    write /proc/sys/vm/dirty_background_ratio 1
-    write /proc/sys/kernel/sched_boost 1
-
-on charger
-    # Enable Power modes and set the CPU Freq Sampling rates
-    write /sys/module/lpm_levels/enable_low_power/l2 2
-    write /sys/module/msm_pm/modes/cpu0/power_collapse/suspend_enabled 1
-    write /sys/module/msm_pm/modes/cpu1/power_collapse/suspend_enabled 1
-    write /sys/module/msm_pm/modes/cpu2/power_collapse/suspend_enabled 1
-    write /sys/module/msm_pm/modes/cpu3/power_collapse/suspend_enabled 1
-    write /sys/module/msm_pm/modes/cpu0/power_collapse/idle_enabled 1
-    write /sys/module/msm_thermal/core_control/enabled 0
-    write /sys/devices/system/cpu/cpu1/online 1
-    write /sys/devices/system/cpu/cpu2/online 1
-    write /sys/devices/system/cpu/cpu3/online 1
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "powersave"
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "powersave"
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "powersave"
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "powersave"
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 300000
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 300000
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 300000
-    write /sys/module/msm_thermal/core_control/enabled 1
-    write /sys/devices/system/cpu/cpu1/online 0
-    write /sys/devices/system/cpu/cpu2/online 0
-    write /sys/devices/system/cpu/cpu3/online 0
-
-on property:service.bootanim.exit=1
-    # Enable Power modes
-    write /sys/module/lpm_levels/enable_low_power/l2 4
-    write /sys/module/msm_pm/modes/cpu0/power_collapse/suspend_enabled 1
-    write /sys/module/msm_pm/modes/cpu1/power_collapse/suspend_enabled 1
-    write /sys/module/msm_pm/modes/cpu2/power_collapse/suspend_enabled 1
-    write /sys/module/msm_pm/modes/cpu3/power_collapse/suspend_enabled 1
-    write /sys/module/msm_pm/modes/cpu0/power_collapse/idle_enabled 1
-    write /sys/module/msm_pm/modes/cpu1/power_collapse/idle_enabled 1
-    write /sys/module/msm_pm/modes/cpu2/power_collapse/idle_enabled 1
-    write /sys/module/msm_pm/modes/cpu3/power_collapse/idle_enabled 1
-    write /sys/module/msm_pm/modes/cpu0/standalone_power_collapse/suspend_enabled 1
-    write /sys/module/msm_pm/modes/cpu1/standalone_power_collapse/suspend_enabled 1
-    write /sys/module/msm_pm/modes/cpu2/standalone_power_collapse/suspend_enabled 1
-    write /sys/module/msm_pm/modes/cpu3/standalone_power_collapse/suspend_enabled 1
-    write /sys/module/msm_pm/modes/cpu0/standalone_power_collapse/idle_enabled 1
-    write /sys/module/msm_pm/modes/cpu1/standalone_power_collapse/idle_enabled 1
-    write /sys/module/msm_pm/modes/cpu2/standalone_power_collapse/idle_enabled 1
-    write /sys/module/msm_pm/modes/cpu3/standalone_power_collapse/idle_enabled 1
-    write /sys/module/msm_pm/modes/cpu0/retention/idle_enabled 1
-    write /sys/module/msm_pm/modes/cpu1/retention/idle_enabled 1
-    write /sys/module/msm_pm/modes/cpu2/retention/idle_enabled 1
-    write /sys/module/msm_pm/modes/cpu3/retention/idle_enabled 1
-
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 300000
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 300000
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 300000
-    chown root system /sys/devices/system/cpu/cpu1/online
-    chown root system /sys/devices/system/cpu/cpu2/online
-    chown root system /sys/devices/system/cpu/cpu3/online
-    chmod 664 /sys/devices/system/cpu/cpu1/online
-    chmod 664 /sys/devices/system/cpu/cpu2/online
-    chmod 664 /sys/devices/system/cpu/cpu3/online
-
-on property:init.svc.bootanim=stopped
-    # Switch to ROW and balanced mode after boot for better UX
-    write /sys/class/devfreq/qcom,cpubw.41/governor "cpubw_hwmon"
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay "20000 1400000:40000 1700000:20000"
-    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 90
-    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400
-    write /sys/devices/system/cpu/cpufreq/interactive/io_is_busy 1
-    write /sys/devices/system/cpu/cpufreq/interactive/target_loads "85 1500000:90 1800000:70"
-    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 40000
-    write /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis 100000
-    write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 30000
-
-    write /sys/module/cpu_boost/parameters/boost_ms 20
-    write /sys/module/cpu_boost/parameters/sync_threshold 1728000
-    write /sys/module/cpu_boost/parameters/input_boost_freq 1497600
-    write /sys/module/cpu_boost/parameters/input_boost_ms 40
-    write /sys/class/kgsl/kgsl-3d0/devfreq/governor msm-adreno-tz
-
-    write /sys/block/mmcblk0/queue/scheduler row
-    start mpdecision
-
-on property:init.svc.bootanim=running
-    # Switch to NOOP while booting
-    write /sys/block/mmcblk0/queue/scheduler noop
+    #Grant access to system UID for SMSC HUB sysfs entry
+    chown system system /sys/bus/platform/devices/msm_smsc_hub/enable
 
 # Export GPIO56 for fusion targets to enable/disable hub
 service usbhub_init /system/bin/usbhub_init
@@ -771,7 +630,6 @@ service qcom-c_main-sh /system/bin/sh /init.class_main.sh
 on property:vold.decrypt=trigger_restart_framework
     start qcom-c_main-sh
     start config_bluetooth
-    start wcnss-service
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
@@ -855,13 +713,6 @@ service bt-sap /system/bin/sapd 15
     class late_start
     disabled
     oneshot
-
-service btsnoop /system/bin/btsnoop
-   user bluetooth
-   group bluetooth net_bt_admin sdcard_rw sdcard_r
-   class late_start
-   disabled
-   oneshot
 
 service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
     class late_start
@@ -1065,7 +916,6 @@ service wifi-crda /system/bin/sh /system/etc/init.crda.sh
    disabled
    oneshot
 
-
 on property:sys.boot_completed=1
     start qcom-post-boot
 
@@ -1261,8 +1111,10 @@ service diag_mdlog_stop /system/bin/diag_mdlog -k
 service qlogd /system/xbin/qlogd
     class main
     disabled
+
 on property:persist.sys.qlogd=1
     start qlogd
+
 on property:persist.sys.qlogd=0
     stop qlogd
 
@@ -1273,17 +1125,17 @@ service tp_node /system/bin/sh /system/bin/tp_node.sh
     oneshot
 
 service btCommand /system/bin/btCommand
-        class main
-        user  root
-        group root
-        disabled
-        oneshot
+    class main
+    user root
+    group root
+    disabled
+    oneshot
 
 on property:persist.service.btcmd=1
-       start btCommand
+    start btCommand
 
 on property:persist.service.btcmd=0
-       stop  btCommand
+    stop  btCommand
 
 #ZTEMT lcd image enhance
 on property:persist.sys.image.enhance=w
@@ -1305,48 +1157,3 @@ on property:persist.sys.image.colortmp=c
     write /sys/kernel/lcd_enhance/colortmp 26
 #ZTEMT END
 
-# CM Performance Profiles
-on property:sys.perf.profile=0
-    write /sys/class/devfreq/qcom,cpubw.41/governor "powersave"
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor conservative
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor conservative
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor conservative
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor conservative
-    write /sys/class/kgsl/kgsl-3d0/devfreq/governor msm-adreno-tz
-    start mpdecision
-
-on property:sys.perf.profile=1
-    write /sys/class/devfreq/qcom,cpubw.41/governor "msm_cpufreq"
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "interactive"
-
-    write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay "20000 1400000:40000 1700000:20000"
-    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 90
-    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400
-    write /sys/devices/system/cpu/cpufreq/interactive/io_is_busy 0
-    write /sys/devices/system/cpu/cpufreq/interactive/target_loads "85 1500000:90 1800000:70"
-    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 40000
-    write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 30000
-    write /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor 100000
-    write /sys/devices/system/cpu/cpufreq/interactive/timer_slack 30000
-    write /sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_load 50
-    write /sys/devices/system/cpu/cpufreq/interactive/sync_freq 1036800
-    write /sys/devices/system/cpu/cpufreq/interactive/up_threshold_any_cpu_freq 1190400
-
-    write /sys/class/kgsl/kgsl-3d0/devfreq/governor msm-adreno-tz
-    start mpdecision
-
-on property:sys.perf.profile=2
-    stop mpdecision
-    write /sys/devices/system/cpu/cpu0/online 1
-    write /sys/devices/system/cpu/cpu1/online 1
-    write /sys/devices/system/cpu/cpu2/online 1
-    write /sys/devices/system/cpu/cpu3/online 1
-    write /sys/class/devfreq/qcom,cpubw.41/governor "performance"
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor performance
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor performance
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor performance
-    write /sys/class/kgsl/kgsl-3d0/devfreq/governor performance

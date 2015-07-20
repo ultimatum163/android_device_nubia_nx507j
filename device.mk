@@ -15,10 +15,11 @@
 #
 
 # call the proprietary setup
-$(call inherit-product, vendor/ZTE/NX507J/NX507J-vendor.mk)
+$(call inherit-product, vendor/zte/nx507j/nx507j-vendor.mk)
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Inherit from msm8974-common
-$(call inherit-product, device/ZTE/NX507J/msm8974.mk)
+$(call inherit-product, device/zte/nx507j/msm8974.mk)
+
