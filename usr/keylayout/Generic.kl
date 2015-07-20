@@ -121,7 +121,7 @@ key 98    NUMPAD_DIVIDE
 key 99    SYSRQ
 key 100   ALT_RIGHT
 # key 101 "KEY_LINEFEED"
-#/* ZTEMT Modify by luochangyang, 2013/03/27 */
+#/* modified by ZTEMT 2014.11.5 */
 #key 102   MOVE_HOME
 key 102   HOME              VIRTUAL
 #/* ZTEMT END */
@@ -161,14 +161,14 @@ key 128   MEDIA_STOP
 # key 136 "KEY_FIND"
 # key 137 "KEY_CUT"
 # key 138 "KEY_HELP"
-#/* ZTEMT Modify by luochangyang, 2013/06/04 */
-#key 139   MENU              WAKE_DROPPED
+#/* modified by ZTEMT 2014.11.5 */
+#key 139   MENU
 key 139   MENU              VIRTUAL
 #/* ZTEMT END */
 key 140   CALCULATOR
 # key 141 "KEY_SETUP"
-key 142   POWER
-key 143   POWER
+key 142   SLEEP
+key 143   WAKEUP
 # key 144 "KEY_FILE"
 # key 145 "KEY_SENDFILE"
 # key 146 "KEY_DELETEFILE"
@@ -183,8 +183,8 @@ key 152   POWER
 key 155   ENVELOPE
 key 156   BOOKMARK
 # key 157 "KEY_COMPUTER"
-#/* ZTEMT Modify by luochangyang, 2013/06/04 */
-#key 158   BACK              WAKE_DROPPED
+#/* modified by ZTEMT 2014.11.5 */
+#key 158   BACK
 key 158   BACK              VIRTUAL
 #/* ZTEMT END */
 key 159   FORWARD
@@ -200,7 +200,7 @@ key 168   MEDIA_REWIND
 key 169   CALL
 # key 170 "KEY_ISO"
 key 171   MUSIC
-key 172   HOME
+key 172   HOME              VIRTUAL
 # key 173 "KEY_REFRESH"
 # key 174 "KEY_EXIT"
 # key 175 "KEY_MOVE"
@@ -413,6 +413,9 @@ key 484   B                 FUNCTION
 # key 503 KEY_BRL_DOT7
 # key 504 KEY_BRL_DOT8
 
+key 580   APP_SWITCH
+key 582   VOICE_ASSIST
+
 # Keys defined by HID usages
 key usage 0x0c006F BRIGHTNESS_UP
 key usage 0x0c0070 BRIGHTNESS_DOWN
@@ -432,3 +435,16 @@ axis 0x09 GAS
 axis 0x0a BRAKE
 axis 0x10 HAT_X
 axis 0x11 HAT_Y
+
+# LEDs
+led 0x00 NUM_LOCK
+led 0x01 CAPS_LOCK
+led 0x02 SCROLL_LOCK
+led 0x03 COMPOSE
+led 0x04 KANA
+led 0x05 SLEEP
+led 0x06 SUSPEND
+led 0x07 MUTE
+led 0x08 MISC
+led 0x09 MAIL
+led 0x0a CHARGING

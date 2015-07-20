@@ -27,6 +27,26 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
+# Update USB serial number from persist storage if present, if not update
+# with value passed from kernel command line, if none of these values are
+# set then use the default value. This order is needed as for devices which
+# do not have unique serial number.
+# User needs to set unique usb serial number to persist.usb.serialno
+#
+serialno=`getprop persist.usb.serialno`
+case "$serialno" in
+    "")
+    serialnum=`getprop ro.serialno`
+    case "$serialnum" in
+        "");; #Do nothing, use default serial number
+        *)
+        echo "$serialnum" > /sys/class/android_usb/android0/iSerial
+    esac
+    ;;
+    *)
+    echo "$serialno" > /sys/class/android_usb/android0/iSerial
+esac
+
 chown -h root.system /sys/devices/platform/msm_hsusb/gadget/wakeup
 chmod -h 220 /sys/devices/platform/msm_hsusb/gadget/wakeup
 
@@ -87,20 +107,19 @@ case "$usb_config" in
           "eng" | "userdebug")
              setprop persist.sys.usb.config nubia,adb
            ;;
-          * )
-             setprop persist.sys.usb.config nubia
+          *) 	
+            setprop persist.sys.usb.config nubia
            ;;
       esac
      ;;
 	  * ) ;; #USB persist config exists, do nothing
-esac
-
+esac	 		
 #
 # Add support for exposing lun0 as cdrom in mass-storage
 #
 target=`getprop ro.product.device`
-cdromname="/system/driver.iso"
-echo $cdromname > /sys/class/android_usb/android0/f_mass_storage/lun0/file
+#cdromname="/system/driver.iso"
+#echo $cdromname > /sys/class/android_usb/android0/f_mass_storage/lun0/file
 
 #
 # Do target specific things
