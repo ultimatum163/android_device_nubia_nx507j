@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="app_name">Додатково</string>
+    <string name="prox_cal">Калібрування датчика наближення</string>
+    <string name="prox_naked_cal">Первинне калібрування датчика наближення</string>
+    <string name="port_enabler">Включити діагностичний порт</string>
+    <string name="main_storage_title">Основна пам’ять</string>
+    <string name="keys_order_title">Порядок фізичних клавіш</string>
+    <string name="reboot_needed">Перезавантажте телефон для зміни налаштувань</string>
+    <string name="fail">Невідома помилка.</string>
+    <string name="fast_charge">Швидка зарядка</string>
+    <string name="charge_level">Струм швидкої зарядки, mA</string>
+    <string name="palm2sleep_title">Palm2sleep</string>
+    <string name="touchscreen_category">Екран</string>
+    <string name="charger_category">Заряд</string>
+    <string name="storages_category">Пам’ять</string>
+    <string name="tuning_category">Оптимізація</string>
+    <string name="zram_title">ZRam</string>
+    <string name="cpugov">Cpu governor</string>
+    <string name="cpugov_balanced">Збалансований режим</string>
+    <string name="cpugov_powersave">Powersave mode</string>
+    <string name="cpu_boost">Підвищення частоти процесора</string>
+    <string name="intelliplug_boost">Активація додаткових ядер</string>
+</resources>

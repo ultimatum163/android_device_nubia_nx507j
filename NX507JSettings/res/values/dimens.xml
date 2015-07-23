@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ActionBar contentInsetStart -->
+    <dimen name="actionbar_contentInsetStart">16dp</dimen>
+    <dimen name="actionbar_subsettings_contentInsetStart">72dp</dimen>
+</resources>

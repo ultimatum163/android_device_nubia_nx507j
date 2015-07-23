@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="keys_order_names">
+        <item>MENU - STRONA GŁÓWNA - WSTECZ</item>
+        <item>WSTECZ - STRONA GŁÓWNA - MENU</item>
+    </string-array>
+    <string-array name="main_storage_names">
+        <item>Pamięć wewnętrzna</item>
+        <item>Karta SD</item>
+    </string-array>
+    <string-array name="zram_names">
+        <item>64 Mb</item>
+        <item>128 Mb</item>
+        <item>256 Mb</item>
+        <item>512 Mb</item>
+        <item>Wyłącz</item>
+    </string-array>
+    <string-array name="chargelevel_names">
+        <item>Automatycznie</item>
+    </string-array>
+</resources>

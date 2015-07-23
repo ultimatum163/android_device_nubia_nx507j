@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="keys_order_names">
+        <item>菜单 - 桌面 - 返回</item>
+        <item>返回 - 桌面 - 菜单</item>
+    </string-array>
+    <string-array name="main_storage_names">
+        <item>内置存储</item>
+        <item>SD卡存储</item>
+    </string-array>
+    <string-array name="zram_names">
+        <item>64 Mb</item>
+        <item>128 Mb</item>
+        <item>256 Mb</item>
+        <item>512 Mb</item>
+        <item>关闭</item>
+    </string-array>
+    <string-array name="chargelevel_names">
+        <item>自动</item>
+    </string-array>
+</resources>

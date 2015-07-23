@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="keys_order_names">
+        <item>MENU - HOME - BACK</item>
+        <item>BACK - HOME - MENU</item>
+    </string-array>
+    <string-array translatable="false" name="keys_order_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="main_storage_names">
+        <item>Internal storage</item>
+        <item>SD card</item>
+    </string-array>
+    <string-array translatable="false" name="main_storage_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="zram_names">
+        <item>64 Mb</item>
+        <item>128 Mb</item>
+        <item>256 Mb</item>
+        <item>512 Mb</item>
+        <item>Off</item>
+    </string-array>
+    <string-array translatable="false" name="zram_values">
+        <item>64</item>
+        <item>128</item>
+        <item>256</item>
+        <item>512</item>
+        <item>0</item>
+    </string-array>
+    <string-array name="chargelevel_names">
+        <item>Auto</item>
+    </string-array>
+    <string-array translatable="false" name="chargelevel_values">
+        <item>0</item>
+    </string-array>
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="app_name">Advanced settings</string>
+    <string name="prox_cal">Prox calibration</string>
+    <string name="prox_naked_cal">Prox naked calibration</string>
+    <string name="port_enabler">Enable diagnostic port</string>
+    <string name="main_storage_title">Main storage</string>
+    <string name="keys_order_title">Touchscreen keys order</string>
+    <string name="reboot_needed">Please, reboot to apply changes.</string>
+    <string name="fail">Unknown error.</string>
+    <string name="fast_charge">Force fast charge</string>
+    <string name="charge_level">Fast charge level, mA</string>
+    <string name="palm2sleep_title">Palm2sleep</string>
+    <string name="touchscreen_category">Touchscreen</string>
+    <string name="charger_category">Charger</string>
+    <string name="storages_category">Storages</string>
+    <string name="tuning_category">Tuning</string>
+    <string name="zram_title">ZRam</string>
+    <string name="cpugov">Cpu governor</string>
+    <string name="cpugov_balanced">Balanced mode</string>
+    <string name="cpugov_powersave">Powersave mode</string>
+    <string name="cpu_boost">Cpu frequency boost</string>
+    <string name="intelliplug_boost">Cpu cores boost</string>
+    <string name="cpu_boost_summary"></string>
+    <string name="intelliplug_boost_summary"></string>
+
+    <!-- Gesture shortcuts -->
+    <string name="ambient_display_title">Ambient display</string>
+
+    <string name="screen_gestures_panel_title">Gestures</string>
+    <string name="screen_gestures_panel_summary">Use gestures to perform actions</string>
+
+    <string name="hand_wave_gesture_title">Hand wave</string>
+    <string name="hand_wave_gesture_summary">Pulse notifications on hand wave</string>
+
+    <string name="pocket_gesture_title">Pocket</string>
+    <string name="pocket_gesture_summary">Pulse notifications on removal from pocket</string>
+</resources>

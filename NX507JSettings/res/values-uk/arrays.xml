@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="keys_order_names">
+        <item>МЕНЮ - ДОДОМУ - НАЗАД</item>
+        <item>НАЗАД - ДОДОМУ - МЕНЮ</item>
+    </string-array>
+    <string-array name="main_storage_names">
+        <item>Внутрішня пам’ять</item>
+        <item>SD карта</item>
+    </string-array>
+    <string-array name="zram_names">
+        <item>64 Мб</item>
+        <item>128 Мб</item>
+        <item>256 Мб</item>
+        <item>512 Мб</item>
+        <item>Вимк.</item>
+    </string-array>
+    <string-array name="chargelevel_names">
+        <item>Автоматично</item>
+    </string-array>
+</resources>
