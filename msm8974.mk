@@ -59,8 +59,9 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.secure=0 \
-    ro.adb.secure=0
-    
+    ro.adb.secure=0 \
+    ro.debuggable=1
+
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
@@ -218,6 +219,9 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_PACKAGES += \
     power.msm8974
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/etc/powerprofile.sh:system/bin/powerprofile.sh
+
 # Ramdisk
 PRODUCT_PACKAGES += \
     init.rc \
@@ -302,7 +306,6 @@ PRODUCT_PACKAGES += \
     mkntfs
 
 PRODUCT_PACKAGES += \
-    LatinIME \
     libjni_latinime
 
 # etc bluetooth
@@ -312,7 +315,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/bluetooth/bt_stack.conf:system/etc/bluetooth/bt_stack.conf \
     $(LOCAL_PATH)/etc/cne/andsfCne.xml:system/etc/cne/andsfCne.xml \
     $(LOCAL_PATH)/etc/cne/SwimConfig.xml:system/etc/cne/SwimConfig.xml \
-    $(LOCAL_PATH)/etc/dpm/nsrm/NsrmConfiguration.xml:system/etc/dpm/nsrm/NsrmConfiguration.xml \
     $(LOCAL_PATH)/etc/flp.conf:system/etc/flp.conf \
     $(LOCAL_PATH)/etc/gps.conf:system/etc/gps.conf \
     $(LOCAL_PATH)/etc/hcidump.sh:system/etc/hcidump.sh \

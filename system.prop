@@ -2,6 +2,9 @@
 # system.prop for nx507j
 #
 ro.vendor.extension_library=/vendor/lib/libqti-perfd-client.so
+
+persist.sys.usb.config=mtp,adb
+
 rild.libpath=/vendor/lib/libril-qc-qmi-1.so
 rild.libargs=-d /dev/smd0
 persist.rild.nitz_plmn=
@@ -120,7 +123,7 @@ audio.offload.buffer.size.kb=32
 #Enable offload audio video playback by default
 av.offload.enable=true
 #enable voice path for PCM VoIP by default
-use.voice.path.for.pcm.voip=true
+use.voice.path.for.pcm.voip=false
 
 #disable dsp gapless mode by default
 audio.offload.gapless.enabled=false

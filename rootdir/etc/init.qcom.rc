@@ -259,20 +259,6 @@ on boot
 	chown system system /sys/kernel/lcd_enhance/disptype
 	chmod 0666 /sys/kernel/lcd_enhance/disptype
 	
-	#doubletap2wake
-	chown system system  /sys/android_touch/dt2w
-	chmod 0666  /sys/android_touch/dt2w
-	chown system system  /sys/android_touch/dt2w_duration
-	chmod 0666  /sys/android_touch/dt2w_duration
-	
-	#sweep2wake
-	chown root system  /sys/android_touch/s2w_s2sonly
-	chmod 0666  /sys/android_touch/s2w_s2sonly
-	chown root system  /sys/android_touch/sweep2wake
-	chmod 0666  /sys/android_touch/sweep2wake
-	chown root system  /sys/android_touch/s2w_allow_stroke
-	chmod 0666  /sys/android_touch/s2w_allow_stroke
-
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/timed_output/vibrator/vtg_level
 	
