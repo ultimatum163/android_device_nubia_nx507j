@@ -112,7 +112,7 @@ persist.sys.ssr.restart_level=3
 persist.sys.ap.restart_level=0
 
 # set primary card enabled
-persist.radio.primarycard=true
+persist.radio.primarycard=false
 
 # two panels for settings and mms
 persist.sys.twopanel.enable=false
