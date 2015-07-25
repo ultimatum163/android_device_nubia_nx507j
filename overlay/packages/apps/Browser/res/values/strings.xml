@@ -14,17 +14,21 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- The default homepage. -->
-    <string name="homepage_base" translatable="false">
-        https://www.google.com/webhp?client={CID}&amp;source=android-home</string>
 
-   <!-- Bookmarks -->
+    <!-- The default homepage. -->
+    <string name="homepage_base" translatable="false">https://www.google.com/</string>
+
+    <!-- Bookmarks -->
     <string-array name="bookmarks" translatable="false">
         <item>Google</item>
         <item>http://www.google.com/</item>
+        <item>Twitter</item>
+        <item>http://twitter.com/</item>
+        <item>Facebook</item>
+        <item>http://www.facebook.com/</item>
         <item>Wikipedia</item>
         <item>http://www.wikipedia.org/</item>
-	<item>4PDA</item>
-        <item>http://4pda.ru/</item>
     </string-array>
+
 </resources>
+
