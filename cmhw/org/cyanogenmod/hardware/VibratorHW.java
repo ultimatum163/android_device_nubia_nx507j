@@ -52,3 +52,4 @@ public class VibratorHW {
         return FileUtils.writeLine(LEVEL_PATH, String.valueOf(intensity));
     }
 }
+

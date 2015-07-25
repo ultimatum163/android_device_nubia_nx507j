@@ -36,7 +36,6 @@ on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
-    # ZTEMT: Some commands are moved to and modified in init.project.rc
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage 0550 system sdcard_r
@@ -62,10 +61,9 @@ on init
     symlink /storage/sdcard1 /mnt/external_sd
     symlink /storage/usbdisk /usbdisk
     symlink /storage/usbdisk /mnt/usbdisk
-    
+
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
-    
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -97,7 +95,7 @@ on boot
     chmod 0660 /dev/ttyHS2
     chown bluetooth bluetooth /dev/ttyHS2
 
-    #Create QMUX deamon socket area
+    # Create QMUX deamon socket area
     mkdir /dev/socket/qmux_radio 0770 radio radio
     chmod 2770 /dev/socket/qmux_radio
     mkdir /dev/socket/qmux_audio 0770 media audio
@@ -107,7 +105,7 @@ on boot
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
 
-    #Create PERFD deamon related dirs
+    # Create PERFD deamon related dirs
     mkdir /data/misc/perfd 0755 root system
     chmod 2755 /data/misc/perfd
     mkdir /data/system/perfd 0770 root system
@@ -117,20 +115,18 @@ on boot
 
     setprop qcom.bt.dev_power_class "-p 1"
 
-#   Define TCP buffer sizes for various networks
-#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    # Define TCP buffer sizes for various networks
+    # ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.wifi    524288,2097152,4194304,262144,524288,1048576
-
 
     setprop ro.telephony.call_ring.multiple false
 
-    #Set SUID bit for usbhub
+    # Set SUID bit for usbhub
     chmod 4755 /system/bin/usbhub
     chmod 755 /system/bin/usbhub_init
 
-    #Remove SUID bit for iproute2 ip tool
+    # Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
-
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
@@ -141,8 +137,8 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_delack_seg
     chown system system /sys/kernel/ipv4/tcp_use_userconfig
 
-#   Define TCP buffer sizes for various networks
-#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    # Define TCP buffer sizes for various networks
+    # ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
     setprop net.tcp.buffersize.lte     524288,1048576,2097152,262144,524288,1048576
     setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
@@ -154,7 +150,7 @@ on boot
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
     setprop net.tcp.buffersize.evdo    4094,87380,262144,4096,16384,262144
 
-# Define TCP delayed ack settings for WiFi & LTE
+    # Define TCP delayed ack settings for WiFi & LTE
     setprop net.tcp.delack.default     1
     setprop net.tcp.delack.wifi        20
     setprop net.tcp.delack.lte         8
@@ -162,12 +158,12 @@ on boot
     setprop net.tcp.usercfg.wifi       1
     setprop net.tcp.usercfg.lte        1
 
-#   Assign TCP buffer thresholds to be ceiling value of technology maximums
-#   Increased technology maximums should be reflected here.
+    # Assign TCP buffer thresholds to be ceiling value of technology maximums
+    # Increased technology maximums should be reflected here.
     write /proc/sys/net/core/rmem_max  2097152
     write /proc/sys/net/core/wmem_max  2097152
 
-    #To allow interfaces to get v6 address when tethering is enabled
+    # To allow interfaces to get v6 address when tethering is enabled
     write /proc/sys/net/ipv6/conf/rmnet0/accept_ra 2
     write /proc/sys/net/ipv6/conf/rmnet1/accept_ra 2
     write /proc/sys/net/ipv6/conf/rmnet2/accept_ra 2
@@ -188,212 +184,209 @@ on boot
     write /proc/sys/net/ipv6/conf/rmnet_usb1/accept_ra 2
     write /proc/sys/net/ipv6/conf/rmnet_usb2/accept_ra 2
     write /proc/sys/net/ipv6/conf/rmnet_usb3/accept_ra 2
-       
-    
-# Add the haptics sysfs permission
+
+    # Add the haptics sysfs permission
     chown system system /dev/drv2605
     chmod 0660 /dev/drv2605
-    
-	# torch-light 
-	chown system system /sys/class/leds/torch-light/brightness
-	chmod 0666 /sys/class/leds/torch-light/brightness
-	
-	# lcd-backlight 
-	chown system system /sys/class/leds/lcd-backlight/max_brightness
-	chmod 0666 /sys/class/leds/lcd-backlight/max_brightness
-	
-	# leds-backlight 
-	chown system system /sys/class/leds/led:rgb_green/brightness
-	chmod 0666 /sys/class/leds/led:rgb_green/brightness
-	chown system system /sys/class/leds/led:rgb_green/blink
-	chmod 0666 /sys/class/leds/led:rgb_green/blink
-	chown system system /sys/class/leds/led:rgb_green/lut_flags
-	chmod 0666 /sys/class/leds/led:rgb_green/lut_flags
-	chown system system /sys/class/leds/led:rgb_green/ramp_step_ms
-	chmod 0666 /sys/class/leds/led:rgb_green/ramp_step_ms
-	chown system system /sys/class/leds/led:rgb_green/max_brightness
-	chmod 0666 /sys/class/leds/led:rgb_green/max_brightness
 
-	chown system system /sys/class/leds/led:rgb_blue/brightness
-	chmod 0666 /sys/class/leds/led:rgb_blue/brightness
-	chown system system /sys/class/leds/led:rgb_blue/blink
-	chmod 0666 /sys/class/leds/led:rgb_blue/blink
-	chown system system /sys/class/leds/led:rgb_blue/lut_flags
-	chmod 0666 /sys/class/leds/led:rgb_blue/lut_flags
-	chown system system /sys/class/leds/led:rgb_blue/ramp_step_ms
-	chmod 0666 /sys/class/leds/led:rgb_blue/ramp_step_ms
-	chown system system /sys/class/leds/led:rgb_blue/max_brightness
-	chmod 0666 /sys/class/leds/led:rgb_blue/max_brightness
-	
-	# button-backlight
-	chown root system /sys/class/leds/red/brightness
-	chmod 0666 /sys/class/leds/red/brightness
-	chown root system /sys/class/leds/red/blink
-	chmod 0666 /sys/class/leds/red/blink
-	chown root system /sys/class/leds/red/lut_flags
-	chmod 0666 /sys/class/leds/red/lut_flags
-	chown root system /sys/class/leds/red/pause_hi
-	chmod 0666 /sys/class/leds/red/pause_hi
-	chown root system /sys/class/leds/red/pause_lo
-	chmod 0666 /sys/class/leds/red/pause_lo
-	chown root system /sys/class/leds/red/ramp_step_ms
-	chmod 0666 /sys/class/leds/red/ramp_step_ms
-	chown root system /sys/class/leds/red/duty_pcts
-	chmod 0666 /sys/class/leds/red/duty_pcts
-	chown root system /sys/class/leds/red/max_brightness
-	chmod 0666 /sys/class/leds/red/max_brightness
-	chown root system /sys/class/leds/button-backlight/brightness
-	chmod 0666 /sys/class/leds/button-backlight/brightness
-	chown root system /sys/class/leds/button-backlight/max_brightness
-	chmod 0666 /sys/class/leds/button-backlight/max_brightness
-	chown system system /sys/class/leds/red/pwm_us
-	chmod 0666 /sys/class/leds/red/pwm_us
+    # torch-light
+    chown system system /sys/class/leds/torch-light/brightness
+    chmod 0666 /sys/class/leds/torch-light/brightness
+
+    # lcd-backlight
+    chown system system /sys/class/leds/lcd-backlight/max_brightness
+    chmod 0666 /sys/class/leds/lcd-backlight/max_brightness
+
+    # leds-backlight
+    chown system system /sys/class/leds/led:rgb_green/brightness
+    chmod 0666 /sys/class/leds/led:rgb_green/brightness
+    chown system system /sys/class/leds/led:rgb_green/blink
+    chmod 0666 /sys/class/leds/led:rgb_green/blink
+    chown system system /sys/class/leds/led:rgb_green/lut_flags
+    chmod 0666 /sys/class/leds/led:rgb_green/lut_flags
+    chown system system /sys/class/leds/led:rgb_green/ramp_step_ms
+    chmod 0666 /sys/class/leds/led:rgb_green/ramp_step_ms
+    chown system system /sys/class/leds/led:rgb_green/max_brightness
+    chmod 0666 /sys/class/leds/led:rgb_green/max_brightness
+    chown system system /sys/class/leds/led:rgb_blue/brightness
+    chmod 0666 /sys/class/leds/led:rgb_blue/brightness
+    chown system system /sys/class/leds/led:rgb_blue/blink
+    chmod 0666 /sys/class/leds/led:rgb_blue/blink
+    chown system system /sys/class/leds/led:rgb_blue/lut_flags
+    chmod 0666 /sys/class/leds/led:rgb_blue/lut_flags
+    chown system system /sys/class/leds/led:rgb_blue/ramp_step_ms
+    chmod 0666 /sys/class/leds/led:rgb_blue/ramp_step_ms
+    chown system system /sys/class/leds/led:rgb_blue/max_brightness
+    chmod 0666 /sys/class/leds/led:rgb_blue/max_brightness
+
+    # button-backlight
+    chown root system /sys/class/leds/red/brightness
+    chmod 0666 /sys/class/leds/red/brightness
+    chown root system /sys/class/leds/red/blink
+    chmod 0666 /sys/class/leds/red/blink
+    chown root system /sys/class/leds/red/lut_flags
+    chmod 0666 /sys/class/leds/red/lut_flags
+    chown root system /sys/class/leds/red/pause_hi
+    chmod 0666 /sys/class/leds/red/pause_hi
+    chown root system /sys/class/leds/red/pause_lo
+    chmod 0666 /sys/class/leds/red/pause_lo
+    chown root system /sys/class/leds/red/ramp_step_ms
+    chmod 0666 /sys/class/leds/red/ramp_step_ms
+    chown root system /sys/class/leds/red/duty_pcts
+    chmod 0666 /sys/class/leds/red/duty_pcts
+    chown root system /sys/class/leds/red/max_brightness
+    chmod 0666 /sys/class/leds/red/max_brightness
+    chown root system /sys/class/leds/button-backlight/brightness
+    chmod 0666 /sys/class/leds/button-backlight/brightness
+    chown root system /sys/class/leds/button-backlight/max_brightness
+    chmod 0666 /sys/class/leds/button-backlight/max_brightness
+    chown system system /sys/class/leds/red/pwm_us
+    chmod 0666 /sys/class/leds/red/pwm_us
 
     chown system system /sys/class/input/input0/wakeup_gesture
-	chmod 0666 /sys/class/input/input0/wakeup_gesture
+    chmod 0666 /sys/class/input/input0/wakeup_gesture
     chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/easy_wakeup_gesture
-	chmod 0666 /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/easy_wakeup_gesture
-	
-	# lcd enhance
-	chown system system /sys/kernel/lcd_enhance/disptype
-	chmod 0666 /sys/kernel/lcd_enhance/disptype
-	
+    chmod 0666 /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/easy_wakeup_gesture
+
+    # lcd enhance
+    chown system system /sys/kernel/lcd_enhance/disptype
+    chmod 0666 /sys/kernel/lcd_enhance/disptype
+
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/timed_output/vibrator/vtg_level
-	
-	# gamma
-	chown root system  /sys/module/mdss_dsi_ctrl/kgamma_bn
-	chown root system  /sys/module/mdss_dsi_ctrl/kgamma_bp
-	chown root system  /sys/module/mdss_dsi_ctrl/kgamma_gn
-	chown root system  /sys/module/mdss_dsi_ctrl/kgamma_gp
-	chown root system  /sys/module/mdss_dsi_ctrl/kgamma_rn
-	chown root system  /sys/module/mdss_dsi_ctrl/kgamma_rp
-	chown root system  /sys/module/mdss_dsi_ctrl/kgamma_send
-	chown root system  /sys/module/mdss_dsi_ctrl/kgamma_w
-	
-	chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_bn	
-	chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_bp
-	chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_gn
-	chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_gp
-	chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_rn
-	chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_rp
-	chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_send
-	chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_w
-    # Torch
+
+    # gamma
+    chown root system  /sys/module/mdss_dsi_ctrl/kgamma_bn
+    chown root system  /sys/module/mdss_dsi_ctrl/kgamma_bp
+    chown root system  /sys/module/mdss_dsi_ctrl/kgamma_gn
+    chown root system  /sys/module/mdss_dsi_ctrl/kgamma_gp
+    chown root system  /sys/module/mdss_dsi_ctrl/kgamma_rn
+    chown root system  /sys/module/mdss_dsi_ctrl/kgamma_rp
+    chown root system  /sys/module/mdss_dsi_ctrl/kgamma_send
+    chown root system  /sys/module/mdss_dsi_ctrl/kgamma_w
+
+    chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_bn
+    chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_bp
+    chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_gn
+    chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_gp
+    chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_rn
+    chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_rp
+    chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_send
+    chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_w
+
+    # torch
     chown system camera /sys/class/leds/led:flash_torch/brightness
-    chmod 0660 /sys/class/leds/led:flash_torch/brightness  
-    
-# ADDED BY ZTEMT ZhuBing
-	chown root system /sys/class/leds/red/brightness
-	chmod 0666 /sys/class/leds/red/brightness
-	chown root system /sys/class/leds/red/max_brightness
-	chmod 0666 /sys/class/leds/red/max_brightness
+    chmod 0660 /sys/class/leds/led:flash_torch/brightness
+
+    chown root system /sys/class/leds/red/brightness
+    chmod 0666 /sys/class/leds/red/brightness
+    chown root system /sys/class/leds/red/max_brightness
+    chmod 0666 /sys/class/leds/red/max_brightness
     chown system system /sys/class/leds/red/fade_parameter
     chown system system /sys/class/leds/red/grade_parameter
     chown system system /sys/class/leds/red/outn
     chown system system /sys/class/leds/red/brightness
-    
+
     chown system system /sys/kernel/lcd_enhance/saturation
     chmod 0666 /sys/kernel/lcd_enhance/saturation
 
-# add the sensor sysfs permission
-	#gesture
+    # add the sensor sysfs permission
+    # gesture
     chown system system /sys/class/gesture/gesture/enable
     chown system system /sys/class/gesture/gesture/gesture_offset_init
     chown system system /sys/class/gesture/gesture/gesture_data_safe_range_max
     chown system system /sys/class/gesture/gesture/gesture_data_safe_range_min
-	chown system system /sys/class/gesture/gesture/gesture_offset_cal
-	chown system system /sys/class/gesture/gesture/gesture_offset_cal_start
-	chown system system /sys/class/gesture/gesture/gesture_channel_data_max
+    chown system system /sys/class/gesture/gesture/gesture_offset_cal
+    chown system system /sys/class/gesture/gesture/gesture_offset_cal_start
+    chown system system /sys/class/gesture/gesture/gesture_channel_data_max
 
     chmod 0644 /sys/class/gesture/gesture/enable
     chmod 0644 /sys/class/gesture/gesture/gesture_offset_init
     chmod 0644 /sys/class/gesture/gesture/gesture_data_safe_range_max
     chmod 0644 /sys/class/gesture/gesture/gesture_data_safe_range_min
-	chmod 0644 /sys/class/gesture/gesture/gesture_offset_cal
-	chmod 0644 /sys/class/gesture/gesture/gesture_offset_cal_start
-	chmod 0644 /sys/class/gesture/gesture/gesture_channel_data_max
+    chmod 0644 /sys/class/gesture/gesture/gesture_offset_cal
+    chmod 0644 /sys/class/gesture/gesture/gesture_offset_cal_start
+    chmod 0644 /sys/class/gesture/gesture/gesture_channel_data_max
 
-	#hall_device
+    # hall_device
     chown system system /sys/class/hall_device/hall_device/enable
 
     chmod 0644 /sys/class/hall_device/hall_device/enable
-    
-	#proximity
-	mkdir /persist/proxdata 0775 system system
-	chown system system /persist/proxdata
-	chmod 0775 /persist/proxdata
-	chown system system /sys/class/proximity/proximity/enable
-	chown system system /sys/class/proximity/proximity/prox_manual_calibrate_threshold
-	chown system system /sys/class/proximity/proximity/prox_init
-	chown system system /sys/class/proximity/proximity/prox_threshold_init
-	chown system system /sys/class/proximity/proximity/prox_offset_init
-	chown system system /sys/class/proximity/proximity/prox_thres
-	chown system system /sys/class/proximity/proximity/chip_name
-	chown system system /sys/class/proximity/proximity/prox_threshold_cal_start
-	chown system system /sys/class/proximity/proximity/prox_offset_cal_start
-	chown system system /sys/class/proximity/proximity/prox_offset_cal
-	chown system system /sys/class/proximity/proximity/prox_data_safe_range_max
-	chown system system /sys/class/proximity/proximity/prox_data_safe_range_min
-	chown system system /sys/class/proximity/proximity/prox_calibrate
-	chown system system /sys/class/proximity/proximity/prox_calibrate_start
-	chown system system /sys/class/proximity/proximity/prox_calibrate_result
-	chown system system /sys/class/proximity/proximity/prox_data_max
-	chown system system /sys/class/proximity/proximity/prox_debug
-	chown system system /sys/class/proximity/proximity/prox_thres_max
-	chown system system /sys/class/proximity/proximity/prox_thres_min
-	chown system system /sys/class/proximity/proximity/prox_threshold_high
-	chown system system /sys/class/proximity/proximity/prox_threshold_low
-	chown system system /sys/class/proximity/proximity/prox_thres_param_high
-	chown system system /sys/class/proximity/proximity/prox_thres_param_low
-	chown system system /sys/class/proximity/proximity/prox_pluse_length
-	chown system system /sys/class/proximity/proximity/prox_thres_pulse_count
-	chown system system /sys/class/proximity/proximity/prox_wakelock
-	chown system system /sys/class/proximity/proximity/prox_phone_is_sleep
 
-	chmod 0644 /sys/class/proximity/proximity/enable
-	chmod 0644 /sys/class/proximity/proximity/prox_manual_calibrate_threshold
-	chmod 0644 /sys/class/proximity/proximity/chip_name
-	chmod 0644 /sys/class/proximity/proximity/prox_threshold_cal_start
-	chmod 0644 /sys/class/proximity/proximity/prox_offset_cal_start
-	chmod 0644 /sys/class/proximity/proximity/prox_data_safe_range_max
-	chmod 0644 /sys/class/proximity/proximity/prox_data_safe_range_min
-	chmod 0644 /sys/class/proximity/proximity/prox_calibrate_start
-	chmod 0644 /sys/class/proximity/proximity/prox_calibrate_result
-	chmod 0644 /sys/class/proximity/proximity/prox_debug
-	chmod 0644 /sys/class/proximity/proximity/prox_thres_max
-	chmod 0644 /sys/class/proximity/proximity/prox_thres_min
-	chmod 0644 /sys/class/proximity/proximity/prox_threshold_high
-	chmod 0644 /sys/class/proximity/proximity/prox_threshold_low
-	chmod 0644 /sys/class/proximity/proximity/prox_pluse_length
-	chmod 0644 /sys/class/proximity/proximity/prox_thres_pulse_count
+    # proximity
+    mkdir /persist/proxdata 0775 system system
+    chown system system /persist/proxdata
+    chmod 0775 /persist/proxdata
+    chown system system /sys/class/proximity/proximity/enable
+    chown system system /sys/class/proximity/proximity/prox_manual_calibrate_threshold
+    chown system system /sys/class/proximity/proximity/prox_init
+    chown system system /sys/class/proximity/proximity/prox_threshold_init
+    chown system system /sys/class/proximity/proximity/prox_offset_init
+    chown system system /sys/class/proximity/proximity/prox_thres
+    chown system system /sys/class/proximity/proximity/chip_name
+    chown system system /sys/class/proximity/proximity/prox_threshold_cal_start
+    chown system system /sys/class/proximity/proximity/prox_offset_cal_start
+    chown system system /sys/class/proximity/proximity/prox_offset_cal
+    chown system system /sys/class/proximity/proximity/prox_data_safe_range_max
+    chown system system /sys/class/proximity/proximity/prox_data_safe_range_min
+    chown system system /sys/class/proximity/proximity/prox_calibrate
+    chown system system /sys/class/proximity/proximity/prox_calibrate_start
+    chown system system /sys/class/proximity/proximity/prox_calibrate_result
+    chown system system /sys/class/proximity/proximity/prox_data_max
+    chown system system /sys/class/proximity/proximity/prox_debug
+    chown system system /sys/class/proximity/proximity/prox_thres_max
+    chown system system /sys/class/proximity/proximity/prox_thres_min
+    chown system system /sys/class/proximity/proximity/prox_threshold_high
+    chown system system /sys/class/proximity/proximity/prox_threshold_low
+    chown system system /sys/class/proximity/proximity/prox_thres_param_high
+    chown system system /sys/class/proximity/proximity/prox_thres_param_low
+    chown system system /sys/class/proximity/proximity/prox_pluse_length
+    chown system system /sys/class/proximity/proximity/prox_thres_pulse_count
+    chown system system /sys/class/proximity/proximity/prox_wakelock
+    chown system system /sys/class/proximity/proximity/prox_phone_is_sleep
 
-	#mic
-	mkdir /persist/mics 0775 system system
-    
-    #light
+    chmod 0644 /sys/class/proximity/proximity/enable
+    chmod 0644 /sys/class/proximity/proximity/prox_manual_calibrate_threshold
+    chmod 0644 /sys/class/proximity/proximity/chip_name
+    chmod 0644 /sys/class/proximity/proximity/prox_threshold_cal_start
+    chmod 0644 /sys/class/proximity/proximity/prox_offset_cal_start
+    chmod 0644 /sys/class/proximity/proximity/prox_data_safe_range_max
+    chmod 0644 /sys/class/proximity/proximity/prox_data_safe_range_min
+    chmod 0644 /sys/class/proximity/proximity/prox_calibrate_start
+    chmod 0644 /sys/class/proximity/proximity/prox_calibrate_result
+    chmod 0644 /sys/class/proximity/proximity/prox_debug
+    chmod 0644 /sys/class/proximity/proximity/prox_thres_max
+    chmod 0644 /sys/class/proximity/proximity/prox_thres_min
+    chmod 0644 /sys/class/proximity/proximity/prox_threshold_high
+    chmod 0644 /sys/class/proximity/proximity/prox_threshold_low
+    chmod 0644 /sys/class/proximity/proximity/prox_pluse_length
+    chmod 0644 /sys/class/proximity/proximity/prox_thres_pulse_count
+
+    # mic
+    mkdir /persist/mics 0775 system system
+
+    # light
     chown system system /sys/class/light/light/enable
     chown system system /sys/class/light/light/delay
 
     chmod 0644 system system /sys/class/light/light/enable
     chmod 0644 system system /sys/class/light/light/delay
 
-	#temperature
+    # temperature
     chown system system /sys/class/temperature/temperature/enable
     chown system system /sys/class/temperature/temperature/temperature_poll_time
 
     chmod 0644 system /sys/class/temperature/temperature/enable
     chmod 0644 /sys/class/temperature/temperature/temperature_data
 
-
-	#humidity
+    # humidity
     chown system system /sys/class/humidity/humidity/enable
     chown system system /sys/class/humidity/humidity/humidity_poll_time
 
     chmod 0644 system /sys/class/humidity/humidity/enable
     chmod 0644 /sys/class/humidity/humidity/humidity_data
 
-	#sensor_common
+    # sensor_common
     chown system system /sys/class/sensor/temp_humidity/raw_humidity
     chown system system /sys/class/sensor/temp_humidity/raw_temp
 
@@ -406,13 +399,10 @@ on boot
     chown root system /sys/devices/platform/kcal_ctrl.0/kcal_ctrl
     chmod 0664 /sys/devices/platform/kcal_ctrl.0/kcal
     chmod 0664 /sys/devices/platform/kcal_ctrl.0/kcal_ctrl
-    
-# ADDED BY ZTEMT ZhuBing END
 
     chown system system /sys/devices/virtual/graphics/fb0/rgb
     chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
 
-#ZTEMT enable detceting 9V charger 
     setprop persist.usb.hvdcp.detect false
 
     # To prevent out of order acknowledgements from making
@@ -493,11 +483,11 @@ on post-fs-data
     chown system system /sys/devices/platform/msm_sdcc.3/polling
     chown system system /sys/devices/platform/msm_sdcc.4/polling
 
-    #Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
+    # Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     mkdir /data/system 0775 system system
-    #symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
+    # symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
 
-    #Create directories for Location services
+    # Create directories for Location services
     mkdir /data/misc/location 0770 gps gps
     mkdir /data/misc/location/mq 0770 gps gps
     mkdir /data/misc/location/xtwifi 0770 gps gps
@@ -505,15 +495,15 @@ on post-fs-data
     mkdir /data/misc/location/quipc 0770 gps system
     mkdir /data/misc/location/gsiff 0770 gps gps
 
-    #Create directory from IMS services
+    # Create directory from IMS services
     mkdir /data/shared 0755
     chown system system /data/shared
 
-    #Create directory for FOTA
+    # Create directory for FOTA
     mkdir /data/fota 0771
     chown system system /data/fota
 
-    #Create directory for hostapd
+    # Create directory for hostapd
     mkdir /data/hostapd 0770 system wifi
 
     # Create /data/time folder for time-services
@@ -523,7 +513,7 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
-    #Create a folder for SRS to be able to create a usercfg file
+    # Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
 
     # Grant access to system UID for SMSC HUB sysfs entry
@@ -531,10 +521,10 @@ on post-fs-data
 
 # Export GPIO56 for fusion targets to enable/disable hub
 service usbhub_init /system/bin/usbhub_init
-   class late_start
-   user root
-   disabled
-   oneshot
+    class late_start
+    user root
+    disabled
+    oneshot
 
 service qcomsysd /system/bin/qcom-system-daemon
     class main
@@ -641,9 +631,9 @@ on property:ro.boot.emmc=true
     start rmt_storage
 
 service rfs_access /system/bin/rfs_access
-   class core
-   user system
-   group system net_raw
+    class core
+    user system
+    group system net_raw
 
 on property:ro.boot.emmc=true
     start rfs_access
@@ -679,11 +669,11 @@ on property:bluetooth.hciattach=false
     setprop bluetooth.status off
 
 service hciattach_ath3k /system/bin/sh /system/etc/init.ath3k.bt.sh
-     class late_start
-     user bluetooth
-     group system bluetooth net_bt_admin misc
-     disabled
-     oneshot
+    class late_start
+    user bluetooth
+    group system bluetooth net_bt_admin misc
+    disabled
+    oneshot
 
 service bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
     class late_start
@@ -764,10 +754,10 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     -I/system/etc/wifi/wpa_supplicant_overlay.conf \
     -O/data/misc/wifi/sockets -puse_p2p_group_interface=1 \
     -e/data/misc/wifi/entropy.bin -g@android:wpa_wlan0
-#   we will start as root and wpa_supplicant will switch to user wifi
-#   after setting up the capabilities required for WEXT
-#   user wifi
-#   group wifi inet keystore
+    # we will start as root and wpa_supplicant will switch to user wifi
+    # after setting up the capabilities required for WEXT
+    # user wifi
+    # group wifi inet keystore
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
@@ -778,10 +768,10 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     -I/system/etc/wifi/wpa_supplicant_overlay.conf \
     -O/data/misc/wifi/sockets \
     -e/data/misc/wifi/entropy.bin -g@android:wpa_wlan0
-    #   we will start as root and wpa_supplicant will switch to user wifi
-    #   after setting up the capabilities required for WEXT
-    #   user wifi
-    #   group wifi inet keystore
+    # we will start as root and wpa_supplicant will switch to user wifi
+    # after setting up the capabilities required for WEXT
+    # user wifi
+    # group wifi inet keystore
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
@@ -851,7 +841,7 @@ service dhcpcd_bnep4 /system/bin/dhcpcd -BKLG
     oneshot
 
 service loc_launcher /system/bin/loc_launcher
-    #loc_launcher will start as root and set its uid to gps
+    # loc_launcher will start as root and set its uid to gps
     class late_start
     group gps qcom_oncrpc inet net_raw qcom_diag net_admin wifi
 
@@ -863,14 +853,14 @@ service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     oneshot
 
 on property:crypto.driver.load=1
-     insmod /system/lib/modules/qce.ko
-     insmod /system/lib/modules/qcedev.ko
+    insmod /system/lib/modules/qce.ko
+    insmod /system/lib/modules/qcedev.ko
 
 service drmdiag /system/bin/drmdiagapp
     class late_start
-     user root
-     disabled
-     oneshot
+    user root
+    disabled
+    oneshot
 
 on property:drmdiag.load=1
     start drmdiag
@@ -896,11 +886,10 @@ service wifi-sdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
     oneshot
 
 service wifi-crda /system/bin/sh /system/etc/init.crda.sh
-   class late_start
-   user root
-   disabled
-   oneshot
-
+    class late_start
+    user root
+    disabled
+    oneshot
 
 on property:sys.boot_completed=1
     start qcom-post-boot
@@ -974,7 +963,6 @@ service profiler_daemon /system/bin/profiler_daemon
     group root
     disabled
 
-
 on property:ro.fuse_sdcard=true
     start sdcard
 
@@ -1030,15 +1018,13 @@ on property:persist.sys.ssr.restart_level=3
     write /sys/bus/msm_subsys/devices/subsys2/restart_level related
     write /sys/bus/msm_subsys/devices/subsys3/restart_level related
 
-#/* ZTEMT START */
 # Disable download mode when kernel panic
 on property:persist.sys.ap.restart_level=0
-	write /sys/module/restart/parameters/download_mode 0
+    write /sys/module/restart/parameters/download_mode 0
 
 # Eisable download mode when kernel panic
 on property:persist.sys.ap.restart_level=1
-	write /sys/module/restart/parameters/download_mode 1
-#/* ZTEMT END */
+    write /sys/module/restart/parameters/download_mode 1
 
 # Define fastmmi
 service fastmmi /system/bin/mmi
@@ -1123,7 +1109,7 @@ on property:persist.service.btcmd=1
 on property:persist.service.btcmd=0
     stop  btCommand
 
-#ZTEMT lcd image enhance
+# lcd image enhance
 on property:persist.sys.image.enhance=w
     write /sys/kernel/lcd_enhance/saturation 24
 
@@ -1141,5 +1127,4 @@ on property:persist.sys.image.colortmp=n
 
 on property:persist.sys.image.colortmp=c
     write /sys/kernel/lcd_enhance/colortmp 26
-#ZTEMT END
 

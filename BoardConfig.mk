@@ -18,9 +18,6 @@
 
 LOCAL_PATH := device/zte/nx507j
 
-# Thanks list
-TARGET_RELEASETOOLS_EXTENSIONS := device/zte/nx507j
-
 PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
     frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
     frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, $(PRODUCT_COPY_FILES))
