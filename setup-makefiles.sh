@@ -155,16 +155,11 @@ DEVICE_PACKAGE_OVERLAYS += vendor/$VENDOR/$DEVICE/overlay
 
 PRODUCT_PACKAGES += \\
     libHevcSwDecoder \\
-    com.qualcomm.location \\
-    com.qualcomm.msapm \\
-    TimeService \\
     libtime_genoff \\
     libTimeService \\
     libmdmdetect \\
     libperipheral_client \\
-    libscale \\
-    qcrilmsgtunnel \\
-    shutdownlistener
+    libscale
 
 \$(call inherit-product, vendor/$VENDOR/$DEVICE/$DEVICE-vendor-blobs.mk)
 EOF

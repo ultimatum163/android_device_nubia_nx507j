@@ -25,8 +25,8 @@ bin/tp_node.sh
 lib/modules/texfat.ko
 
 # GPS
--priv-app/com.qualcomm.location/com.qualcomm.location.apk
--priv-app/com.qualcomm.msapm/com.qualcomm.msapm.apk
+#-priv-app/com.qualcomm.location/com.qualcomm.location.apk
+#-priv-app/com.qualcomm.msapm/com.qualcomm.msapm.apk
 bin/loc_launcher
 bin/location-mq
 bin/lowi-server
@@ -46,7 +46,7 @@ vendor/lib/hw/activity_recognition.msm8974.so
 
 # Time services
 bin/time_daemon
-app/TimeService/TimeService.apk
+#app/TimeService/TimeService.apk
 
 # ACDB data
 etc/acdbdata/MTP/MTP_Bluetooth_cal.acdb
@@ -148,8 +148,8 @@ etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
 framework/qcnvitems.jar
 framework/qcrilhook.jar
--app/qcrilmsgtunnel/qcrilmsgtunnel.apk
--app/shutdownlistener/shutdownlistener.apk
+#-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+#-app/shutdownlistener/shutdownlistener.apk
 
 # Sensors
 bin/sensors.qcom
