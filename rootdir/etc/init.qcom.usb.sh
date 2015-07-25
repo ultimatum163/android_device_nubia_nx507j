@@ -107,13 +107,14 @@ case "$usb_config" in
           "eng" | "userdebug")
              setprop persist.sys.usb.config nubia,adb
            ;;
-          *) 	
-            setprop persist.sys.usb.config nubia
+          * )
+             setprop persist.sys.usb.config nubia
            ;;
       esac
      ;;
 	  * ) ;; #USB persist config exists, do nothing
-esac	 		
+esac
+
 #
 # Add support for exposing lun0 as cdrom in mass-storage
 #

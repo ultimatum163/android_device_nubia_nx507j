@@ -31,7 +31,7 @@
 	 <H264Profiles>2</H264Profiles>
     <Valid>1</Valid>
   </VideoHeader>
-<CBP>
+ <CBP>
   <VideoCodec>
     <Profile>1</Profile>
     <Level>1</Level>

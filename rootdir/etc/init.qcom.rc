@@ -25,19 +25,18 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+#import init.qcom.usb.rc
 import init.nubia.usb.rc
 import init.target.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
-    chown system system /sys/kernel/debug/kgsl/proc
-    #write /sys/block/mmcblk0/queue/scheduler noop
-    #write /sys/block/mmcblk0/bdi/read_ahead_kb 512
 
 on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
+    # ZTEMT: Some commands are moved to and modified in init.project.rc
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage 0550 system sdcard_r
@@ -135,7 +134,7 @@ on boot
 
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
 
-    #For bridgemgr daemon to inform the USB driver of the correct transport
+    # For bridgemgr daemon to inform the USB driver of the correct transport
     chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
 
     # For setting tcp delayed ack
@@ -191,19 +190,19 @@ on boot
     write /proc/sys/net/ipv6/conf/rmnet_usb3/accept_ra 2
        
     
-#add the haptics sysfs permission
+# Add the haptics sysfs permission
     chown system system /dev/drv2605
     chmod 0660 /dev/drv2605
     
-	#torch-light 
+	# torch-light 
 	chown system system /sys/class/leds/torch-light/brightness
 	chmod 0666 /sys/class/leds/torch-light/brightness
 	
-	#lcd-backlight 
+	# lcd-backlight 
 	chown system system /sys/class/leds/lcd-backlight/max_brightness
 	chmod 0666 /sys/class/leds/lcd-backlight/max_brightness
 	
-	#leds-backlight 
+	# leds-backlight 
 	chown system system /sys/class/leds/led:rgb_green/brightness
 	chmod 0666 /sys/class/leds/led:rgb_green/brightness
 	chown system system /sys/class/leds/led:rgb_green/blink
@@ -226,7 +225,7 @@ on boot
 	chown system system /sys/class/leds/led:rgb_blue/max_brightness
 	chmod 0666 /sys/class/leds/led:rgb_blue/max_brightness
 	
-	#button-backlight
+	# button-backlight
 	chown root system /sys/class/leds/red/brightness
 	chmod 0666 /sys/class/leds/red/brightness
 	chown root system /sys/class/leds/red/blink
@@ -255,7 +254,7 @@ on boot
     chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/easy_wakeup_gesture
 	chmod 0666 /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/easy_wakeup_gesture
 	
-	#lcd enhance
+	# lcd enhance
 	chown system system /sys/kernel/lcd_enhance/disptype
 	chmod 0666 /sys/kernel/lcd_enhance/disptype
 	
@@ -527,7 +526,7 @@ on post-fs-data
     #Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
 
-    #Grant access to system UID for SMSC HUB sysfs entry
+    # Grant access to system UID for SMSC HUB sysfs entry
     chown system system /sys/bus/platform/devices/msm_smsc_hub/enable
 
 # Export GPIO56 for fusion targets to enable/disable hub
@@ -901,6 +900,7 @@ service wifi-crda /system/bin/sh /system/etc/init.crda.sh
    user root
    disabled
    oneshot
+
 
 on property:sys.boot_completed=1
     start qcom-post-boot
