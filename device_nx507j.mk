@@ -24,17 +24,25 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_AAPT_CONFIG := xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
+# ADB and Root
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.service.adb.enable=1 \
     persist.sys.root_access=3 \
-    persist.sys.usb.config=mtp,adb \
-    net.hostname=NX507J \
+    persist.sys.usb.config=mtp,adb
+
+# Hostname
+PRODUCT_PROPERTY_OVERRIDES += \
+    net.hostname=NX507J
+
+# Optimize
+PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dexopt-flags=m=y \
     dalvik.vm.checkjni=false \
     ro.config.nocheckin=1 \
     ro.kernel.android.checkjni=0 \
     ro.kernel.checkjni=0
 
+# default.prop
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.secure=0 \
     ro.adb.secure=0 \
