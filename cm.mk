@@ -37,6 +37,12 @@ PRODUCT_BRAND := nubia
 PRODUCT_MODEL := NX507J
 PRODUCT_MANUFACTURER := nubia
 
+# Set build fingerprint / ID / Product Name ect.
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    PRODUCT_NAME=nx507j \
+    BUILD_FINGERPRINT="nubia/NX507J/NX507J:5.0/LRX21M/nubia07071848:user/release-keys" \
+    PRIVATE_BUILD_DESC="NX507J-user 5.0 LRX21M eng.nubia.20150707.184633 release-keys"
+
 # Languages
 PRODUCT_DEFAULT_LANGUAGE := zh
 PRODUCT_DEFAULT_REGION := CN
