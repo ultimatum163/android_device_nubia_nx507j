@@ -20,9 +20,6 @@ $(call inherit-product, vendor/zte/nx507j/nx507j-vendor.mk)
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
-# Languages
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
 # Screen density
 PRODUCT_AAPT_CONFIG := xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
