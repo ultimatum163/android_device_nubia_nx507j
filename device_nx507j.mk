@@ -5,7 +5,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+# http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,14 +14,40 @@
 # limitations under the License.
 #
 
-# Languages Pack
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
 # Vendor
-$(call inherit-product-if-exists, vendor/zte/nx507j/nx507j-vendor.mk)
+$(call inherit-product, vendor/zte/nx507j/nx507j-vendor.mk)
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+
+# Languages
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
+# Screen density
+PRODUCT_AAPT_CONFIG := xxhdpi
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.service.adb.enable=1 \
+    persist.sys.root_access=3 \
+    persist.sys.usb.config=mtp,adb \
+    net.hostname=NX507J \
+    dalvik.vm.dexopt-flags=m=y \
+    dalvik.vm.checkjni=false \
+    ro.config.nocheckin=1 \
+    ro.kernel.android.checkjni=0 \
+    ro.kernel.checkjni=0
+
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.secure=0 \
+    ro.adb.secure=0 \
+    ro.debuggable=1
+
+# call dalvik heap config
+$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+
+# call hwui memory config
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -52,25 +78,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.print.xml:system/etc/permissions/android.software.print.xml \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
     external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:system/etc/permissions/com.dsi.ant.antradio_library.xml
-
-# Screen density
-PRODUCT_AAPT_CONFIG := xxhdpi
-PRODUCT_AAPT_PREF_CONFIG := xxhdpi
-
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.secure=0 \
-    ro.adb.secure=0 \
-    ro.debuggable=1
-
-# Boot animation
-TARGET_SCREEN_HEIGHT := 1920
-TARGET_SCREEN_WIDTH := 1080
-
-# call dalvik heap config
-$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
-
-# call hwui memory config
-$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -125,7 +132,7 @@ PRODUCT_PACKAGES += \
     gralloc.msm8974 \
     hwcomposer.msm8974 \
     memtrack.msm8974 \
-    liboverlay 
+    liboverlay
 
 # Ebtables
 PRODUCT_PACKAGES += \
@@ -162,6 +169,7 @@ PRODUCT_PACKAGES += \
 # keyhandler
 PRODUCT_PACKAGES += \
     com.cyanogenmod.keyhandler
+
 # LOWI
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/lowi.conf:system/etc/lowi.conf
@@ -185,7 +193,6 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     $(LOCAL_PATH)/etc/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/etc/media_profiles.xml:system/etc/media_profiles.xml
-
 
 # WiFi
 PRODUCT_COPY_FILES += \
@@ -265,9 +272,7 @@ PRODUCT_PACKAGES += \
     hostapd.deny \
     hostapd \
     wpa_supplicant \
-    wpa_supplicant.conf
-
-PRODUCT_PACKAGES += \
+    wpa_supplicant.conf \
     p2p_supplicant_overlay.conf \
     wpa_supplicant_overlay.conf \
     wpa_supplicant_ath6kl.conf
@@ -297,10 +302,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libion
 
-ifneq ($(strip $(QCPATH)),)
 PRODUCT_BOOT_JARS += \
     WfdCommon
-endif
 
 PRODUCT_PACKAGES += \
     ntfs-3g \
@@ -310,7 +313,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libjni_latinime
 
-# etc bluetooth
+PRODUCT_PACKAGES += \
+    libemoji
+
+# ETC Bluetooth
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/bluetooth/auto_pair_devlist.conf:system/etc/bluetooth/auto_pair_devlist.conf \
     $(LOCAL_PATH)/etc/bluetooth/bt_did.conf:system/etc/bluetooth/bt_did.conf \
@@ -352,5 +358,5 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/usr/keylayout/Generic.kl:system/usr/keylayout/Generic.kl \
     $(LOCAL_PATH)/usr/keylayout/atmel_mxt_ts.kl:system/usr/keylayout/atmel_mxt_ts.kl \
     $(LOCAL_PATH)/usr/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl \
-    $(LOCAL_PATH)/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl 
+    $(LOCAL_PATH)/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
 

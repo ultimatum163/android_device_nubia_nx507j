@@ -101,7 +101,6 @@ lib/libmorpho_jpeg_io.so
 lib/libmorpho_memory_allocator.so
 lib/libmorpho_strobe_photo_jni.so
 
-
 # Graphics
 vendor/lib/egl/eglsubAndroid.so
 vendor/lib/egl/libEGL_adreno.so
@@ -124,7 +123,6 @@ vendor/lib/rfsa/adsp/libdspCV_skel.so
 vendor/lib/rfsa/adsp/libfastcvadsp_skel.so
 vendor/lib/rfsa/adsp/libfastcvadsp.so
 vendor/lib/rfsa/adsp/libscveT2T_skel.so
-
 
 # Bluetooth
 bin/btnvtool
