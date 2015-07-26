@@ -15,7 +15,7 @@
 #
 
 # Vendor
-$(call inherit-product, vendor/zte/nx507j/nx507j-vendor.mk)
+$(call inherit-product, vendor/nubia/nx507j/nx507j-vendor.mk)
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay

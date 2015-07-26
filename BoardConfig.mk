@@ -14,9 +14,9 @@
 # limitations under the License.
 
 # inherit from the proprietary version
--include vendor/zte/nx507j/BoardConfigVendor.mk
+-include vendor/nubia/nx507j/BoardConfigVendor.mk
 
-LOCAL_PATH := device/zte/nx507j
+LOCAL_PATH := device/nubia/nx507j
 
 PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
     frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
@@ -45,7 +45,7 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 12738083840    # 11.86GB
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/recovery.fstab
 BOARD_VENDOR := zte-qcom
-TARGET_SPECIFIC_HEADER_PATH := device/zte/nx507j/include
+TARGET_SPECIFIC_HEADER_PATH := device/nubia/nx507j/include
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8974
@@ -89,7 +89,7 @@ BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
-TARGET_KERNEL_SOURCE := kernel/zte/nx507j
+TARGET_KERNEL_SOURCE := kernel/nubia/nx507j
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := cm-nx507j_defconfig
 TARGET_ZTEMT_DTS := true

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export VENDOR=zte
+export VENDOR=nubia
 export DEVICE=nx507j
 
 OUTDIR=vendor/$VENDOR/$DEVICE
