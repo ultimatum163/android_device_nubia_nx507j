@@ -147,12 +147,12 @@ PRODUCT_PACKAGES += \
     setup_fs
 
 # FM
-PRODUCT_PACKAGES += \
-    FM2 \
-    FMRecord \
-    libqcomfm_jni \
-    qcom.fmradio \
-    qcom.fmradio.xml
+#PRODUCT_PACKAGES += \
+#    FM2 \
+#    FMRecord \
+#    libqcomfm_jni \
+#    qcom.fmradio \
+#    qcom.fmradio.xml
 
 # QRNGD
 PRODUCT_PACKAGES += \
