@@ -26,7 +26,7 @@ TARGET_SCREEN_WIDTH := 1080
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from nx507j device
-$(call inherit-product, device/nubia/nx507j/device_nx507j.mk)
+$(call inherit-product, device/nubia/nx507j/nx507j.mk)
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
