@@ -21,4 +21,5 @@
     <bool name="assisted_gps_enabled">false</bool>
     <bool name="def_haptic_feedback">false</bool>
     <bool name="def_accelerometer_rotation">false</bool>
+    <bool name="def_install_non_market_apps">true</bool>
 </resources>
