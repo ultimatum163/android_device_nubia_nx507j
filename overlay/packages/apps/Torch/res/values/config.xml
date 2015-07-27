@@ -29,5 +29,4 @@
 
     <!-- If the device supports high brightness mode, enable this -->
     <bool name="hasHighBrightness">true</bool>
-
 </resources>
