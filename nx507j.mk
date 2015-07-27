@@ -24,15 +24,10 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
-# ADB and Root
+# ADB
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.service.adb.enable=1 \
-    persist.sys.root_access=3 \
     persist.sys.usb.config=mtp,adb
-
-# Hostname
-PRODUCT_PROPERTY_OVERRIDES += \
-    net.hostname=NX507J
 
 # Timezone
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -369,4 +364,12 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/usr/keylayout/atmel_mxt_ts.kl:system/usr/keylayout/atmel_mxt_ts.kl \
     $(LOCAL_PATH)/usr/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl \
     $(LOCAL_PATH)/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
+
+# Filter
+PRODUCT_COPY_FILES := \
+    $(filter-out \
+    frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
+    frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
+    frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, \
+    $(PRODUCT_COPY_FILES))
 
