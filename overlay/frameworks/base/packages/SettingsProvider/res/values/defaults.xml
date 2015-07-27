@@ -17,7 +17,6 @@
  */
 -->
 <resources>
-    <bool name="def_screen_brightness_automatic_mode">true</bool>
     <bool name="assisted_gps_enabled">false</bool>
     <bool name="def_haptic_feedback">false</bool>
     <bool name="def_accelerometer_rotation">false</bool>
