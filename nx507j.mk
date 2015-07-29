@@ -365,11 +365,3 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/usr/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl \
     $(LOCAL_PATH)/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
 
-# Filter
-PRODUCT_COPY_FILES := \
-    $(filter-out \
-    frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
-    frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
-    frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, \
-    $(PRODUCT_COPY_FILES))
-

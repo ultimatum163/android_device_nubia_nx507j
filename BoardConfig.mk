@@ -204,3 +204,8 @@ include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += \
     $(LOCAL_PATH)/sepolicy
 
+# Filter
+PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
+    frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
+    frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, $(PRODUCT_COPY_FILES))
+
