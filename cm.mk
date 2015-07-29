@@ -31,9 +31,6 @@ $(call inherit-product, device/nubia/nx507j/nx507j.mk)
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
-# Clean packages
-$(call inherit-product, device/nubia/nx507j/lite.mk)
-
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := nx507j
 PRODUCT_BRAND := nubia

@@ -209,3 +209,6 @@ PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:syste
     frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
     frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, $(PRODUCT_COPY_FILES))
 
+# Clean
+include device/nubia/nx507j/lite.mk
+
