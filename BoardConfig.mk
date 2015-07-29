@@ -199,7 +199,7 @@ WITH_DEXPREOPT_BOOT_IMG_ONLY := false
 
 # Release
 TARGET_BUILD_TYPE := release
-# TARGET_BUILD_VARIANT := user
+TARGET_BUILD_VARIANT := user
 
 # Buildinfo
 BUILD_NUMBER := $(shell date +%Y%m%d)
