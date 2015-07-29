@@ -187,6 +187,12 @@ BOARD_VENDOR := zte-qcom
 # Preload Boot Animation
 TARGET_BOOTANIMATION_PRELOAD := true
 
+# SELinux
+include device/qcom/sepolicy/sepolicy.mk
+
+BOARD_SEPOLICY_DIRS += \
+    $(LOCAL_PATH)/sepolicy
+
 # Dexopt
 WITH_DEXPREOPT := true
 WITH_DEXPREOPT_BOOT_IMG_ONLY := false
@@ -197,12 +203,6 @@ TARGET_BUILD_TYPE := release
 
 # Buildinfo
 BUILD_NUMBER := $(shell date +%Y%m%d)
-
-# SELinux
-include device/qcom/sepolicy/sepolicy.mk
-
-BOARD_SEPOLICY_DIRS += \
-    $(LOCAL_PATH)/sepolicy
 
 # Filter
 PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
