@@ -289,7 +289,6 @@ PRODUCT_PACKAGES += \
 # ANT+
 PRODUCT_PACKAGES += \
     libantradio \
-    AntHalService \
     com.dsi.ant.antradio_library \
     antradio_app
 
