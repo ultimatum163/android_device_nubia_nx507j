@@ -387,8 +387,3 @@ PRODUCT_COPY_FILES += \
     device/nubia/nx507j/prebuilt/Smooth.ogg:system/media/audio/ringtones/Smooth.ogg \
     device/nubia/nx507j/prebuilt/Tune.ogg:system/media/audio/ringtones/Tune.ogg
 
-# Filter
-PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
-    frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
-    frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, $(PRODUCT_COPY_FILES))
-

@@ -204,3 +204,8 @@ TARGET_BUILD_TYPE := release
 # Buildinfo
 BUILD_NUMBER := $(shell date +%Y%m%d)
 
+# Filter
+PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
+    frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
+    frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, $(PRODUCT_COPY_FILES))
+
