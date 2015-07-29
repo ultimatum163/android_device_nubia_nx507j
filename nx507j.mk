@@ -41,6 +41,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
     ro.kernel.checkjni=0
 
+# Audios
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.notification_sound=Forest.ogg \
+    ro.config.alarm_alert=SMS.ogg
+    ro.config.ringtone=MI.ogg
+
 # default.prop
 ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.secure=0 \
