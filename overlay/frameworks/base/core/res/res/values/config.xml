@@ -217,6 +217,9 @@
         <item>"7,1"</item>
     </string-array>
 
+    <!-- Configuration to sending and receiving Mms when mobile data is disable.-->
+    <bool name="config_enable_mms_with_mobile_data_off">true</bool>
+
     <!-- Set to true if the RSSI should always display CDMA signal strength even on EVDO -->
     <bool name="config_alwaysUseCdmaRssi">false</bool>
 
