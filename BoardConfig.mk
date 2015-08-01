@@ -204,6 +204,10 @@ TARGET_BUILD_TYPE := release
 # Buildinfo
 BUILD_NUMBER := $(shell date +%Y%m%d)
 
+# Linaro
+KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-linux-gnueabihf-4.9-linaro/bin
+KERNEL_TOOLCHAIN_PREFIX := arm-cortex_a15-linux-gnueabihf-
+
 # Filter
 PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
     frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
