@@ -132,7 +132,7 @@ persist.sys.twopanel.enable=false
 persist.sys.bluetooth.name=NX507J
 persist.sys.wifi.p2pname=NX507J
 persist.sys.wifi.softapname=NX507J
-ro.config.devicename=NX507J
+ro.config.devicename=nubia Z7 mini
 
 # wifi
 wifi.interface=wlan0
