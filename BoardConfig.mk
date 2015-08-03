@@ -207,6 +207,8 @@ BUILD_NUMBER := $(shell date +%Y%m%d)
 # Linaro
 KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-linux-gnueabihf-4.9-linaro/bin
 KERNEL_TOOLCHAIN_PREFIX := arm-cortex_a15-linux-gnueabihf-
+TARGET_TOOLCHAIN_ROOT := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9-linaro
+TARGET_TOOLS_PREFIX := $(TARGET_TOOLCHAIN_ROOT)/bin/arm-linux-androideabi-
 
 # Filter
 PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
