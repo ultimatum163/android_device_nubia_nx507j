@@ -301,8 +301,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libion
 
+ifneq ($(strip $(QCPATH)),)
 PRODUCT_BOOT_JARS += \
     WfdCommon
+endif
 
 PRODUCT_PACKAGES += \
     ntfs-3g \
