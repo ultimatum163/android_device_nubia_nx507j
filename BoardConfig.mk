@@ -14,12 +14,13 @@
 # limitations under the License.
 
 # inherit from the proprietary version
--include vendor/ZTE/NX507J/BoardConfigVendor.mk
+-include vendor/nubia/nx507j/BoardConfigVendor.mk
 
-LOCAL_PATH := device/ZTE/NX507J
+LOCAL_PATH := device/nubia/nx507j
+
 
 # Thanks list
-TARGET_RELEASETOOLS_EXTENSIONS 	:= device/ZTE/NX507J
+TARGET_RELEASETOOLS_EXTENSIONS 	:= device/nubia/nx507j
 
 PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
 	frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
@@ -37,7 +38,7 @@ TARGET_GLOBAL_CPPFLAGS += -DANDROID_MULTI_SIM
 COMMON_GLOBAL_CFLAGS += -DQCOM_MEDIA_DISABLE_BUFFER_SIZE_CHECK
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := NX507J,j507NX,nx507J,nx507j,NX507j,z7mini,nx507_mini,nx507
+TARGET_OTA_ASSERT_DEVICE := nx507j,j507NX,nx507J,nx507j,NX507j,z7mini,nx507_mini,nx507,NX507J
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
@@ -48,7 +49,6 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 12738083840
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/recovery.fstab
 BOARD_VENDOR := zte-qcom
-TARGET_SPECIFIC_HEADER_PATH := device/ZTE/NX507J/include
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8974
@@ -86,15 +86,16 @@ TARGET_KRAIT_BIONIC_BBTHRESH := 64
 TARGET_KRAIT_BIONIC_PLDSIZE := 64
 
 # Kernel
+KERNEL_TOOLCHAIN_PREFIX := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-cortex_a15-linux-gnueabihf-linaro_4.9/bin/arm-cortex_a15-linux-gnueabihf-
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
 BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 androidboot.selinux=permissive
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
-TARGET_KERNEL_SOURCE := kernel/ZTE/NX507J
+TARGET_KERNEL_SOURCE := kernel/nubia/nx507j
 TARGET_KERNEL_ARCH := arm
-TARGET_KERNEL_CONFIG := msm8974-NX507J_defconfig
+TARGET_KERNEL_CONFIG := cm-NX507J_defconfig
 TARGET_ZTEMT_DTS := true
 
 # Power
@@ -116,10 +117,13 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BLUETOOTH_HCI_USE_MCT := true
 
+# Charger
+BOARD_CHARGER_DISABLE_INIT_BLANK := true
+
 # Enables Adreno RS driver
 BOARD_EGL_CFG := $(LOCAL_PATH)/etc/egl.cfg
 USE_OPENGL_RENDERER := true
-#NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_USES_C2D_COMPOSITION := true
 #TARGET_GRALLOC_USES_ASHMEM := false
 TARGET_USES_ION := true
@@ -144,8 +148,7 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
 
-# Ant or qualcomm-uart ?
-#BOARD_ANT_WIRELESS_DEVICE := "qualcomm-smd"
+# ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Camera
@@ -157,7 +160,15 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 TARGET_NO_RPC := true
 
 # CMHW
-BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw/
+ifneq ($(CM_VERSION),)
+    BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw/
+endif
+ifneq ($(BLISS_VERSION),)
+    BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw/
+endif
+ifneq ($(MK_VERSION),)
+    BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/mkhw/
+endif
 
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := true
@@ -167,6 +178,7 @@ TARGET_PROVIDES_LIBLIGHT := true
 
 # Charger
 BOARD_CHARGER_SHOW_PERCENTAGE := true
+BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072
@@ -187,6 +199,10 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
 WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
 WIFI_DRIVER_MODULE_NAME := "wlan"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
+WIFI_DRIVER_FW_PATH_STA := "sta"
+WIFI_DRIVER_FW_PATH_AP := "ap"
+TARGET_USES_QCOM_WCNSS_QMI := true
+TARGET_PROVIDES_WCNSS_QMI := true
 
 # Recovery
 BOARD_SUPPRESS_EMMC_WIPE := true
@@ -196,17 +212,16 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-ifeq ($(HOST_OS),linux)
-  ifeq ($(WITH_DEXPREOPT),)
-    WITH_DEXPREOPT := true
-    WITH_DEXPREOPT_BOOT_IMG_ONLY := false
-  endif
-endif
-WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
-
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += \
         $(LOCAL_PATH)/sepolicy
 
+# Disable DEXPREOPT
+WITH_DEXPREOPT := false
+
+ifneq ($(BLISS_VERSION),)
+TARGET_TC_KERNEL := 4.9-linaro
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := $(TARGET_TC_KERNEL)
+endif
