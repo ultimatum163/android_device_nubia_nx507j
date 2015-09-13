@@ -152,7 +152,7 @@ etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
 framework/qcnvitems.jar
 framework/qcrilhook.jar
--app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+-priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 -app/shutdownlistener/shutdownlistener.apk
 
 # Sensors

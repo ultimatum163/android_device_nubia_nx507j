@@ -18,6 +18,7 @@ import common
 
 def Thanks(self):
 	self.script.AppendExtra('ui_print("=============================================");')
+	self.script.AppendExtra('ui_print("   ROM based Lollipop 5.1.1 by ultimatum163  ");')
 	self.script.AppendExtra('ui_print("                   Thanks:                   ");')
 	self.script.AppendExtra('ui_print("             proDOOMman,PaoloW8,Buslik       ");')
 	self.script.AppendExtra('ui_print("=============================================");')
