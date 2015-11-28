@@ -214,7 +214,7 @@ WITH_DEXPREOPT := false
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += device/nubia/nx505j/sepolicy
+BOARD_SEPOLICY_DIRS += device/nubia/nx507j/sepolicy
 
 BOARD_SEPOLICY_UNION += \
     debuggerd.te \
