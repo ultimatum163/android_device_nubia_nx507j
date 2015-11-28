@@ -27,21 +27,17 @@ bin/garden_app
 
 # GPS
 -priv-app/com.qualcomm.location/com.qualcomm.location.apk
--priv-app/com.qualcomm.msapm/com.qualcomm.msapm.apk
 bin/loc_launcher
 bin/location-mq
 bin/lowi-server
 bin/quipc_igsn
 bin/quipc_main
-bin/xtwifi-client
-bin/xtwifi-inet-agent
 lib/libloc_api_v02.so
 lib/libloc_ds_api.so
 lib/libgps.utils.so
 lib/libloc_eng.so
 lib/libloc_core.so
 lib/hw/gps.default.so
-vendor/bin/slim_ap_daemon
 vendor/lib/hw/flp.default.so
 vendor/lib/hw/activity_recognition.msm8974.so
 

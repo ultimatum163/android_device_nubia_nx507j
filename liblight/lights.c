@@ -116,6 +116,9 @@ char const*const BREATH_LED_RAMP_STEP_MS
 char const*const BREATH_LED_DUTY_PCTS
         = "/sys/class/leds/red/duty_pcts";
 
+char const*const BREATH_LED_MAX_BRIGHTNESS
+        = "/sys/class/leds/red/max_brightness";
+
 char const*const BATTERY_CAPACITY
         = "/sys/class/power_supply/battery/capacity";
 
@@ -213,7 +216,9 @@ set_breath_light_locked(int event_source,
     int blink;
     int onMS, offMS;
     int event_brightness;
-
+    char buf[64];
+    int max_brightness;
+    
     event_brightness = rgb_to_brightness(state);
 
     if(event_brightness > 0) {
@@ -247,7 +252,9 @@ set_breath_light_locked(int event_source,
             ALOGE("[LIGHTS.MSM8974] LCD return 0");
 	    return 0;
 	}
-	light_template = BREATH_LED_BRIGHTNESS_LCD;
+    read_int(BREATH_LED_MAX_BRIGHTNESS, &max_brightness);
+    sprintf(buf, "0,%d", max_brightness==255?20:(max_brightness-128)<<1);
+	light_template = buf;
 	lut_flags = PM_PWM_LUT_RAMP_UP;
 	last_state = BREATH_SOURCE_LCD;	
     } else if(active_states & BREATH_SOURCE_NOTIFICATION) {
@@ -304,7 +311,10 @@ set_breath_light_locked(int event_source,
 	  return 0;
 	}
 	state = &g_buttons;
-	light_template = BREATH_LED_BRIGHTNESS_BUTTONS;
+    read_int(BREATH_LED_MAX_BRIGHTNESS, &max_brightness);
+    max_brightness &= 0x7f;
+    sprintf(buf, "0,%d", max_brightness==127?20:(max_brightness<<1));
+	light_template = buf;
 	lut_flags = PM_PWM_LUT_RAMP_UP;
 	last_state = BREATH_SOURCE_BUTTONS;
     } else if(active_states & BREATH_SOURCE_ATTENTION) {
@@ -339,12 +349,17 @@ set_light_backlight(struct light_device_t* dev,
         struct light_state_t const* state)
 {
     int err = 0;
+    int max_brightness;
     int brightness = rgb_to_brightness(state);
     pthread_mutex_lock(&g_lock);
     g_lcd = *state;
     err = write_int(LCD_FILE, brightness);
     ALOGD("[LIGHTS.MSM8974] lcd brightness=%d\n", brightness);
-    set_breath_light_locked(BREATH_SOURCE_LCD, &g_lcd);
+    read_int(BREATH_LED_MAX_BRIGHTNESS, &max_brightness);
+    if (max_brightness > 127)
+        set_breath_light_locked(BREATH_SOURCE_LCD, &g_lcd);
+    else
+        active_states &= ~BREATH_SOURCE_LCD;
     pthread_mutex_unlock(&g_lock);
     return err;
 }
@@ -353,16 +368,21 @@ static int
 set_light_buttons(struct light_device_t* dev,
         struct light_state_t const* state)
 {
+    char buf[64];
+    int max_brightness;
     int brightness = rgb_to_brightness(state);
     pthread_mutex_lock(&g_lock);
     g_buttons = *state;
     if (brightness > 0) {
-    	write_str(LEFT_BUTTON_DUTY_PCTS, BUTTON_LED_BRIGHTNESS);
-    	write_str(RIGHT_BUTTON_DUTY_PCTS, BUTTON_LED_BRIGHTNESS);
+        read_int(BREATH_LED_MAX_BRIGHTNESS, &max_brightness);
+        max_brightness &= 0x7f;
+        sprintf(buf, "0,%d", max_brightness==127?5:(max_brightness>>1));
+    	write_str(LEFT_BUTTON_DUTY_PCTS, buf);
+    	write_str(RIGHT_BUTTON_DUTY_PCTS, buf);
     	write_int(LEFT_BUTTON_LUT_FLAGS, PM_PWM_LUT_RAMP_UP);	
     	write_int(RIGHT_BUTTON_LUT_FLAGS, PM_PWM_LUT_RAMP_UP);	
-    	write_int(LEFT_BUTTON_RAMP_STEP_MS, (int)40);
-    	write_int(RIGHT_BUTTON_RAMP_STEP_MS, (int)40);
+    	write_int(LEFT_BUTTON_RAMP_STEP_MS, (int)10);
+    	write_int(RIGHT_BUTTON_RAMP_STEP_MS, (int)10);
 	usleep(20000);
     }
     write_int(LEFT_BUTTON_BLINK, brightness?1:0);

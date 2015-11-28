@@ -54,16 +54,6 @@ on post-fs-data
     mkdir /tombstones/dsps 0775 system system
 
 on boot
-    #charger
-    chown root system /sys/module/qpnp_charger/parameters/charger_monitor
-    chown root system /sys/class/power_supply/battery/input_current_max
-    chown root system /sys/class/power_supply/battery/input_current_trim
-    chown root system /sys/class/power_supply/battery/voltage_min
-    chmod 0644 /sys/module/qpnp_charger/parameters/charger_monitor
-    chmod 0644 /sys/class/power_supply/battery/input_current_max
-    chmod 0644 /sys/class/power_supply/battery/input_current_trim
-    chmod 0644 /sys/class/power_supply/battery/voltage_min
-
     insmod /system/lib/modules/adsprpc.ko
 
     # exFAT kernel module
@@ -119,14 +109,17 @@ service qrngd /system/bin/qrngd -f
     class main
     user root
     group root
+
 service qrngp /system/bin/qrngp
     class main
     user root
     group root
     oneshot
     disabled
+
 on property:sys.boot_completed=1
     start qrngp
+
 service qseecomd /system/bin/qseecomd
    class core
    user root
@@ -255,16 +248,7 @@ service set_softkey /system/bin/set_softkey.sh
     user root
     oneshot
     disabled
+
 on property:softkey.change=1
     start set_softkey
 
-service qbcharger /charger -m 1
-    disabled
-    oneshot
-    seclabel u:r:healthd:s0
-
-on property:sys.qbcharger.enable=true
-    start qbcharger
-
-on property:sys.qbcharger.enable=false
-    stop qbcharger

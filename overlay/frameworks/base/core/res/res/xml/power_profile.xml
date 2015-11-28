@@ -19,11 +19,12 @@
     </array>
     <array name="cpu.speeds">
         <value>300000</value>
-        <value>384000</value>
-        <value>600000</value>
-        <value>787200</value>
-        <value>998400</value>
-        <value>1094400</value>
+        <value>422400</value>
+        <value>652800</value>
+        <value>729600</value>
+        <value>883200</value>
+        <value>960000</value>
+        <value>1036800</value>
         <value>1190400</value>
         <value>1267200</value>
         <value>1497600</value>

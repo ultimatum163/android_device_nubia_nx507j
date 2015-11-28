@@ -267,7 +267,7 @@ case "$target" in
         echo 1 > /sys/module/msm_pm/modes/cpu2/retention/idle_enabled
         echo 1 > /sys/module/msm_pm/modes/cpu3/retention/idle_enabled
         echo 0 > /sys/module/msm_thermal/core_control/enabled
-        echo Y > /sys/module/clock_krait_8974/parameters/boost
+        #echo Y > /sys/module/clock_krait_8974/parameters/boost
         echo 1 > /sys/devices/system/cpu/cpu1/online
         echo 1 > /sys/devices/system/cpu/cpu2/online
         echo 1 > /sys/devices/system/cpu/cpu3/online
@@ -282,17 +282,11 @@ case "$target" in
                 do
                     echo "cpubw_hwmon" > $devfreq_gov
                 done
-                echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-                echo "interactive" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
-                echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-                echo "interactive" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+                echo "intelliactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+                echo "intelliactive" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+                echo "intelliactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+                echo "intelliactive" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
                 echo "20000 1400000:40000 1700000:20000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-                echo 90 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-                echo 1497600 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-                echo 1497600 > /sys/devices/system/cpu/cpufreq/interactive/input_boost_freq
-                echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-                echo "85 1500000:90 1800000:70" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
-                echo 40000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
                 echo 20 > /sys/module/cpu_boost/parameters/boost_ms
                 echo 1728000 > /sys/module/cpu_boost/parameters/sync_threshold
                 echo 1497600 > /sys/module/cpu_boost/parameters/input_boost_freq
@@ -332,7 +326,7 @@ case "$target" in
         chmod -h 664 /sys/devices/system/cpu/cpu1/online
         chmod -h 664 /sys/devices/system/cpu/cpu2/online
         chmod -h 664 /sys/devices/system/cpu/cpu3/online
-        echo 1 > /dev/cpuctl/apps/cpu.notify_on_migrate
+        echo 1 > /dev/cpuctl/cpu.notify_on_migrate
     ;;
 esac
 
@@ -520,12 +514,13 @@ case "$target" in
         start mpdecision
     ;;
     "msm8974")
+        rm /data/system/perfd/default_values
         start mpdecision
         echo 4096 > /sys/block/mmcblk0/bdi/read_ahead_kb
 	sysctl -w net.ipv4.tcp_congestion_control=westwood
     ;;
     "apq8084")
-        rm /data/system/default_values
+        rm /data/system/perfd/default_values
         start mpdecision
         echo 512 > /sys/block/mmcblk0/bdi/read_ahead_kb
         echo 512 > /sys/block/sda/bdi/read_ahead_kb
@@ -615,4 +610,3 @@ case "$target" in
         echo $oem_version > /sys/devices/soc0/image_crm_version
         ;;
 esac
-

@@ -37,7 +37,6 @@ persist.sys.strictmode.disable=true
 dev.pm.dyn_samplingrate=1
 persist.demo.hdmirotationlock=false
 
-
 ro.hdmi.enable=true
 persist.speaker.prot.enable=false
 qcom.hw.aac.encoder=true
@@ -46,8 +45,9 @@ qcom.hw.aac.encoder=true
 #
 persist.cne.feature=1
 
-#system props for the MM modules
+sys.io.scheduler=bfq
 
+#system props for the MM modules
 media.stagefright.enable-player=true
 media.stagefright.enable-http=true
 media.stagefright.enable-aac=true
@@ -123,6 +123,7 @@ audio.offload.buffer.size.kb=32
 
 #Enable offload audio video playback by default
 av.offload.enable=true
+
 #enable voice path for PCM VoIP by default
 use.voice.path.for.pcm.voip=false
 
@@ -134,13 +135,13 @@ audio.offload.gapless.enabled=false
 persist.sys.ssr.restart_level=3
 persist.sys.ap.restart_level=0
 
-
 #wifi and bt name
 persist.sys.bluetooth.name=nubia Z7 mini
 persist.sys.wifi.p2pname=nubia Z7 mini
 persist.sys.wifi.softapname=nubia Z7 mini
 #device name
 ro.config.devicename=nubia Z7 mini
+
 #set primary card enabled
 persist.radio.primarycard=false
 
