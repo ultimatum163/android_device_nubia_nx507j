@@ -30,40 +30,24 @@ import init.target.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
+    chown system system /sys/kernel/debug/kgsl/proc
 
 on init
+    # Preload the BoringSSL wrapper
+    export LD_PRELOAD "/system/lib/libboringssl-compat.so:/system/lib/libnubia.so"
+
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
-    # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage 0550 system sdcard_r
-    mkdir /storage/emulated 0555 root root
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /storage/usbdisk 0000 system system
-    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
-    mkdir /storage/sdcard1 0700 root root
-    mkdir /storage/usbdisk 0700 root root
-
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export SECONDARY_STORAGE /storage/sdcard1
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
-    export OTG_STORAGE /storage/usbdisk
-
-    # Support legacy paths
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
-    symlink /storage/sdcard1 /external_sd
-    symlink /storage/sdcard1 /mnt/external_sd
-    symlink /storage/usbdisk /usbdisk
-    symlink /storage/usbdisk /mnt/usbdisk
-    
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
-    
+
+    # Support legacy libs
+    symlink /system/vendor/lib/egl /egl
+
+    # Support legacy paths
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -105,11 +89,16 @@ on boot
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
 
+    #Create NETMGR daemon socket area
+    mkdir /dev/socket/netmgr 0750 radio radio
+
     #Create PERFD deamon related dirs
     mkdir /data/misc/perfd 0755 root system
     chmod 2755 /data/misc/perfd
     mkdir /data/system/perfd 0770 root system
     chmod 2770 /data/system/perfd
+
+    mkdir /persist/drm 0770 system system
 
     setprop wifi.interface wlan0
 
@@ -188,9 +177,9 @@ on boot
     write /proc/sys/net/ipv6/conf/rmnet_usb3/accept_ra 2
        
     
-#add the haptics sysfs permission
-    chown system system /dev/drv2605
-    chmod 0660 /dev/drv2605
+	#add the haptics sysfs permission
+	chown system system /dev/drv2605
+	chmod 0660 /dev/drv2605
     
 	#torch-light 
 	chown system system /sys/class/leds/torch-light/brightness
@@ -251,9 +240,9 @@ on boot
 	chown system system /sys/class/leds/red/pwm_us
 	chmod 0666 /sys/class/leds/red/pwm_us
 
-    chown system system /sys/class/input/input0/wakeup_gesture
+    	chown system system /sys/class/input/input0/wakeup_gesture
 	chmod 0666 /sys/class/input/input0/wakeup_gesture
-    chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/easy_wakeup_gesture
+    	chown system system /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/easy_wakeup_gesture
 	chmod 0666 /sys/bus/ttsp4/devices/main_ttsp_core.cyttsp4_i2c_adapter/easy_wakeup_gesture
 	chown system system /sys/devices/gpio_keys.85/disabled_keys	
 	chmod 0666 /sys/devices/gpio_keys.85/disabled_keys	
@@ -262,9 +251,10 @@ on boot
 	chown system system /sys/kernel/lcd_enhance/disptype
 	chmod 0666 /sys/kernel/lcd_enhance/disptype
 	
-    chown system system /sys/class/timed_output/vibrator/enable
-    chown system system /sys/class/timed_output/vibrator/vtg_level
-	
+	chown system system /sys/class/timed_output/vibrator/enable
+	chown system system /sys/class/timed_output/vibrator/vtg_level
+	chmod 0664 /sys/class/timed_output/vibrator/vtg_level
+
 	# gamma
 	chown root system  /sys/module/mdss_dsi_ctrl/kgamma_bn
 	chown root system  /sys/module/mdss_dsi_ctrl/kgamma_bp
@@ -283,45 +273,45 @@ on boot
 	chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_rp
 	chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_send
 	chmod 0666  /sys/module/mdss_dsi_ctrl/kgamma_w
-    # Torch
-    chown system camera /sys/class/leds/led:flash_torch/brightness
-    chmod 0660 /sys/class/leds/led:flash_torch/brightness  
+   	# Torch
+    	chown system camera /sys/class/leds/led:flash_torch/brightness
+    	chmod 0660 /sys/class/leds/led:flash_torch/brightness  
     
 # ADDED BY ZTEMT ZhuBing
 	chown root system /sys/class/leds/red/brightness
 	chmod 0666 /sys/class/leds/red/brightness
 	chown root system /sys/class/leds/red/max_brightness
 	chmod 0666 /sys/class/leds/red/max_brightness
-    chown system system /sys/class/leds/red/fade_parameter
-    chown system system /sys/class/leds/red/grade_parameter
-    chown system system /sys/class/leds/red/outn
-    chown system system /sys/class/leds/red/brightness
+	chown system system /sys/class/leds/red/fade_parameter
+    	chown system system /sys/class/leds/red/grade_parameter
+    	chown system system /sys/class/leds/red/outn
+    	chown system system /sys/class/leds/red/brightness
     
-    chown system system /sys/kernel/lcd_enhance/saturation
-    chmod 0666 /sys/kernel/lcd_enhance/saturation
+   	chown system system /sys/kernel/lcd_enhance/saturation
+   	chmod 0666 /sys/kernel/lcd_enhance/saturation
 
 # add the sensor sysfs permission
 	#gesture
-    chown system system /sys/class/gesture/gesture/enable
-    chown system system /sys/class/gesture/gesture/gesture_offset_init
-    chown system system /sys/class/gesture/gesture/gesture_data_safe_range_max
-    chown system system /sys/class/gesture/gesture/gesture_data_safe_range_min
+   	chown system system /sys/class/gesture/gesture/enable
+   	chown system system /sys/class/gesture/gesture/gesture_offset_init
+   	chown system system /sys/class/gesture/gesture/gesture_data_safe_range_max
+   	chown system system /sys/class/gesture/gesture/gesture_data_safe_range_min
 	chown system system /sys/class/gesture/gesture/gesture_offset_cal
 	chown system system /sys/class/gesture/gesture/gesture_offset_cal_start
 	chown system system /sys/class/gesture/gesture/gesture_channel_data_max
 
-    chmod 0644 /sys/class/gesture/gesture/enable
-    chmod 0644 /sys/class/gesture/gesture/gesture_offset_init
-    chmod 0644 /sys/class/gesture/gesture/gesture_data_safe_range_max
-    chmod 0644 /sys/class/gesture/gesture/gesture_data_safe_range_min
+   	chmod 0644 /sys/class/gesture/gesture/enable
+   	chmod 0644 /sys/class/gesture/gesture/gesture_offset_init
+   	chmod 0644 /sys/class/gesture/gesture/gesture_data_safe_range_max
+   	chmod 0644 /sys/class/gesture/gesture/gesture_data_safe_range_min
 	chmod 0644 /sys/class/gesture/gesture/gesture_offset_cal
 	chmod 0644 /sys/class/gesture/gesture/gesture_offset_cal_start
 	chmod 0644 /sys/class/gesture/gesture/gesture_channel_data_max
 
 	#hall_device
-    chown system system /sys/class/hall_device/hall_device/enable
+   	chown system system /sys/class/hall_device/hall_device/enable
 
-    chmod 0644 /sys/class/hall_device/hall_device/enable
+   	chmod 0644 /sys/class/hall_device/hall_device/enable
     
 	#proximity
 	mkdir /persist/proxdata 0775 system system
@@ -375,7 +365,7 @@ on boot
 	#mic
 	mkdir /persist/mics 0775 system system
     
-    #light
+	#light
     chown system system /sys/class/light/light/enable
     chown system system /sys/class/light/light/delay
 
@@ -428,8 +418,8 @@ on boot
     write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
 
     # NFC local data and nfcee xml storage
-    mkdir /data/nfc 0770 nfc nfc
-    mkdir /data/nfc/param 0770 nfc nfc
+    # mkdir /data/nfc 0770 nfc nfc
+    # mkdir /data/nfc/param 0770 nfc nfc
 
     # Set the console loglevel to < KERN_INFO
     # Set the default message loglevel to KERN_INFO
@@ -446,8 +436,8 @@ on post-fs-data
     # we will remap this as /mnt/sdcard with the sdcard fuse tool
     mkdir /data/misc/camera 0770 camera camera
 
-    mkdir /data/media 0770 media_rw media_rw
-    chown media_rw media_rw /data/media
+    #mkdir /data/media 0770 media_rw media_rw
+    #chown media_rw media_rw /data/media
 
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
 
@@ -458,6 +448,7 @@ on post-fs-data
     mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
+
 
     # Create the directories used by CnE subsystem
     mkdir /data/connectivity 0771 system system
@@ -480,7 +471,7 @@ on post-fs-data
     mkdir /data/misc/dash 0770 media audio
 
     # Create directory used by display clients
-    mkdir /data/misc/display 0770 system graphics
+    mkdir /data/misc/display 0770 root system
 
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
     # We chown/chmod /persist again so because mount is run as root + defaults
@@ -539,6 +530,7 @@ service usbhub_init /system/bin/usbhub_init
    user root
    disabled
    oneshot
+
 
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
@@ -620,14 +612,6 @@ on property:vold.decrypt=trigger_restart_framework
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
 
-service cnd /system/bin/cnd
-    class late_start
-    socket cnd stream 660 root inet
-
-service dpmd /system/bin/dpmd
-    class late_start
-    socket dpmd stream 660 root system
-
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
     user root
@@ -706,6 +690,7 @@ service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
     group bluetooth net_bt_admin misc net_bt_stack qcom_diag
     disabled
     oneshot
+
 
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
@@ -934,21 +919,31 @@ service battery_monitor /system/bin/battery_monitor
     group system
     disabled
 
+service_redefine ril-daemon /system/bin/rild
+    class main
+    socket rild stream 660 root radio
+    socket sap_uim_socket1 stream 660 bluetooth bluetooth
+    socket rild-debug stream 660 radio system
+    user root
+    group radio cache inet misc audio sdcard_rw qcom_oncrpc qcom_diag log net_raw diag
+
 service ril-daemon2 /system/bin/rild -c 2
     class main
     socket rild2 stream 660 root radio
+    socket sap_uim_socket2 stream 660 bluetooth bluetooth
     socket rild-debug2 stream 660 radio system
     user root
     disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
+    group radio cache inet misc audio sdcard_rw qcom_oncrpc qcom_diag log net_raw diag
 
 service ril-daemon3 /system/bin/rild -c 3
     class main
     socket rild3 stream 660 root radio
+    socket sap_uim_socket3 stream 660 bluetooth bluetooth
     socket rild-debug3 stream 660 radio system
     user root
     disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
+    group radio cache inet misc audio sdcard_rw qcom_oncrpc qcom_diag log net_raw diag
 
 service usb_uicc_enable /system/bin/sh /system/etc/init.qcom.uicc.sh
     class late_start
@@ -966,27 +961,6 @@ service profiler_daemon /system/bin/profiler_daemon
     class late_start
     user root
     group root
-    disabled
-
-
-on property:ro.fuse_sdcard=true
-    start sdcard
-
-# Binding fuse mount point to /storage/emulated/legacy
-on property:init.svc.sdcard=running
-    wait /mnt/shell/emulated/0
-    mount none /mnt/shell/emulated/0 /storage/emulated/legacy bind
-
-# virtual sdcard daemon running as media_rw (1023)
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
-    class late_start
-
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/sdcard1 /storage/sdcard1
-    class late_start
-    disabled
-
-service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 /mnt/media_rw/usbdisk /storage/usbdisk
-    class late_start
     disabled
 
 service hcidump /system/bin/sh /system/etc/hcidump.sh

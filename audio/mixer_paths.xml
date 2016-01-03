@@ -858,7 +858,7 @@
 
     <path name="handset-mic">
         <path name="adc1" />
-        <ctl name="ADC1 Volume" value="15" />
+        <ctl name="ADC1 Volume" value="12" />
     </path>
 
     <path name="single-mic-main">
@@ -868,6 +868,7 @@
     <path name="single-mic-side">
         <path name="adc3" />
     </path>
+
     <path name="anc-handset">
         <ctl name="ANC Function" value="ON" />
         <ctl name="SLIM RX1 MUX" value="AIF1_PB" />
@@ -914,12 +915,12 @@
 
     <path name="headset-mic-DB">
         <path name="adc2" />
-        <ctl name="ADC2 Volume" value="16" />
+        <ctl name="ADC2 Volume" value="14" />
     </path>
 
     <path name="headset-mic-liquid">
         <path name="adc2" />
-        <ctl name="ADC2 Volume" value="22" />
+        <ctl name="ADC2 Volume" value="20" />
     </path>
 
     <path name="voice-handset">
@@ -936,7 +937,7 @@
 
     <path name="voice-speaker-mic">
         <path name="adc1" />
-        <ctl name="ADC1 Volume" value="30" />
+        <ctl name="ADC1 Volume" value="28" />
     </path>
 
     <path name="voice-headphones">
@@ -952,7 +953,7 @@
         <path name="headphones" />
         <ctl name="RX3 MIX1 INP1" value="RX1" />
         <ctl name="RX3 MIX1 INP2" value="RX2" />
-        <ctl name="LINEOUT1 Volume" value="20" />
+        <ctl name="LINEOUT1 Volume" value="18" />
 
     </path>
 
@@ -1113,6 +1114,7 @@
 
     <path name="voice-rec-mic">
         <path name="handset-mic" />
+        <ctl name="ADC1 Volume" value="19" />
     </path>
 
     <path name="camcorder-mic">
@@ -1163,10 +1165,10 @@
         <ctl name="AIF1_CAP Mixer SLIM TX8" value="1" />
         <ctl name="SLIM TX7 MUX" value="DEC6" />
         <ctl name="DEC6 MUX" value="ADC1" />
-        <ctl name="ADC1 Volume" value="22" />
+        <ctl name="ADC1 Volume" value="20" />
         <ctl name="SLIM TX8 MUX" value="DEC4" />
         <ctl name="DEC4 MUX" value="ADC3" />
-        <ctl name="ADC3 Volume" value="22" />
+        <ctl name="ADC3 Volume" value="20" />
         <ctl name="SLIM_0_TX Channels" value="Two" />
     </path>
 
@@ -1192,6 +1194,8 @@
 
     <path name="handset-stereo-dmic-ef">
         <path name="speaker-dmic-endfire" />
+        <ctl name="ADC1 Volume" value="12" />
+        <ctl name="ADC3 Volume" value="12" />
     </path>
 
     <path name="speaker-stereo-dmic-ef">
@@ -1201,6 +1205,7 @@
     <path name="nofluence-dmic-endfire">
         <path name="dmic-endfire" />
     </path>
+
     <path name="voice-dmic-ef-tmus">
         <path name="dmic-endfire" />
     </path>
@@ -1339,7 +1344,7 @@
 
     <path name="voice-tty-full-headset-mic">
         <path name="adc2" />
-        <ctl name="ADC2 Volume" value="14" />
+        <ctl name="ADC2 Volume" value="12" />
     </path>
 
     <path name="voice-tty-hco-headset-mic">

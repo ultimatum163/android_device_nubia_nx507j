@@ -1,3 +1,0 @@
-allow servicemanager init_shell:dir search;
-allow servicemanager init_shell:file { read open };
-allow servicemanager init_shell:process getattr; 

@@ -1,25 +1,25 @@
-Device configuration for the ZTE Nubia Z7 Mini (NX507J)
-===============================
+Copyright 2015 - The CyanogenMod Project
 
-Local manifest for CM12.1, BlissPop, temasek:
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<manifest>
-  <project name="CyanogenMod/android_device_qcom_common" path="device/qcom/common" remote="github" revision="cm-12.1" />
-  <project name="CyanogenMod/android_hardware_qcom_fm" path="hardware/qcom/fm" remote="github" revision="cm-12.1" />
-  <project name="ultimatum163/android_kernel_nubia_nx507j.git" path="kernel/nubia/nx507j" remote="github" revision="lp-5.1" />
-  <project name="ultimatum163/android_device_nubia_nx507j.git" path="device/nubia/nx507j" remote="github" revision="lp-5.1" />
-  <project name="ultimatum163/android_vendor_nubia_nx507j.git" path="vendor/nubia/nx507j" remote="github" revision="lp-5.1" />
-</manifest>
-```
-Local manifest for MoKee L:
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<manifest>
-  <project name="MoKee/android_device_qcom_common" remote="github" revision="mkl-mr1" path="device/qcom/common" />
-  <project name="MoKee/android_hardware_qcom_fm" remote="github" revision="mkl-mr1" path="hardware/qcom/fm" />
-  <project name="ultimatum163/android_kernel_nubia_nx507j.git" path="kernel/nubia/nx507j" remote="github" revision="lp-5.1" />
-  <project name="ultimatum163/android_device_nubia_nx507j.git" path="device/nubia/nx507j" remote="github" revision="lp-5.1" />
-  <project name="ultimatum163/android_vendor_nubia_nx507j.git" path="vendor/nubia/nx507j" remote="github" revision="lp-5.1" />
-</manifest>
-```
+Device configuration for Nubia Z7 Mini.
+=====================================
+
+Basic   | Spec Sheet
+-------:|:-------------------------
+CPU     | Quad-core 2.3 GHz Krait 400
+CHIPSET | Qualcomm MSM8974AB Snapdragon 801
+GPU     | Adreno 330
+SIM     | Dual SIM (Micro-SIM, dual stand-by)
+Memory  | 2GB RAM
+Shipped Android Version | 4.4.2 (KitKat)
+Storage | 16GB
+MicroSD | Up to 64GB
+Battery | 2300 mAh 
+Dimensions | 140,9  x 69,3  x 8,19 mm
+Weight  | 143 g
+Display | 1920 x 1080 pixels, 5.0 in IPS LCD
+Rear Camera  | 13 MP
+Front Camera | 5 MP
+Release Date | July 2014
+
+
+![Nubia Z7Mini](http://cdn2.gsmarena.com/vv/pics/zte/zte-nubia-z7-mini-1.jpg "Nubia Z7Mini")

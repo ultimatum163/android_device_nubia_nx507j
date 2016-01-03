@@ -1,1 +1,2 @@
-allow platform_app time_daemon:unix_stream_socket connectto; 
+#============= platform_app ==============
+allow platform_app self:netlink_kobject_uevent_socket { read bind create setopt };

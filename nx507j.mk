@@ -30,6 +30,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.camera.raw.xml:system/etc/permissions/android.hardware.camera.raw.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.sensor.barometer.xml:system/etc/permissions/android.hardware.sensor.barometer.xml \
@@ -64,8 +65,6 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-
 # call dalvik heap config
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
@@ -84,7 +83,8 @@ PRODUCT_PACKAGES += \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
-    tinymix
+    libqcomvoiceprocessingdescriptors
+    #tinymix
 
 # Audio configuration
 PRODUCT_COPY_FILES += \
@@ -92,6 +92,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml
+
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -127,25 +128,16 @@ PRODUCT_PACKAGES += \
 
 # Filesystem
 PRODUCT_PACKAGES += \
-    e2fsck \
-    fibmap.f2fs \
-    fsck.f2fs \
-    mkfs.f2fs \
-    make_ext4fs \
-    resize2fs \
-    setup_fs
+    make_ext4fs 
+
 
 # FM
 PRODUCT_PACKAGES += \
-    FM2 \
-    FMRecord \
-    libqcomfm_jni \
-    qcom.fmradio \
-    qcom.fmradio.xml
+    FMRadio \
+    libfmjni
 
-# keyhandler
-PRODUCT_PACKAGES += \
-    com.cyanogenmod.keyhandler
+# Dot View Case
+PRODUCT_PACKAGES += Dotcase
 
 # LOWI
 PRODUCT_COPY_FILES += \
@@ -155,6 +147,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/sec_config:system/etc/sec_config
 
+# BoringSSL compatability wrapper
+PRODUCT_PACKAGES += \
+    libboringssl-compat
+
+# Stlport
+PRODUCT_PACKAGES += \
+    libstlport
 # Keystore
 PRODUCT_PACKAGES += \
     keystore.msm8974
@@ -187,34 +186,34 @@ PRODUCT_PACKAGES += \
     libc2dcolorconvert \
     libdashplayer \
     libdivxdrmdecrypt \
+    libextmedia_jni \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
-    libOmxMux \
     libOmxEvrcEnc \
     libOmxQcelp13Enc \
     libOmxVdec \
-    libOmxVdecHevc \
     libOmxVenc \
-    libHevcSwDecoder \
+    libOmxVidcCommon \
+    libqcmediaplayer \
     libstagefrighthw \
+    libstagefright_soft_flacdec \
     qcmediaplayer
+#    libOmxMux \
+#    libOmxVdecHevc \
 
 PRODUCT_BOOT_JARS += \
     qcmediaplayer
-
 # Power
 PRODUCT_PACKAGES += \
     power.msm8974
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/etc/powerprofile.sh:system/bin/powerprofile.sh
-
 #enable/disable softkey script
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/set_softkey.sh:system/bin/set_softkey.sh
+
 # Ramdisk
 PRODUCT_PACKAGES += \
+    init.rc \
     fstab.qcom \
     init.class_main.sh \
     init.mdm.sh \
@@ -229,9 +228,12 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.sh \
     init.target.rc \
     init.trace.rc \
-    init.usb.rc \
     ueventd.qcom.rc \
     ueventd.rc
+
+# Old RIL symbols
+PRODUCT_PACKAGES += \
+    libnubia
 
 # Thermal config
 PRODUCT_COPY_FILES += \
@@ -249,12 +251,9 @@ PRODUCT_PACKAGES += \
     hostapd.deny \
     hostapd \
     wpa_supplicant \
-    wpa_supplicant.conf
-
-PRODUCT_PACKAGES += \
-    p2p_supplicant_overlay.conf \
+    wpa_supplicant.conf \
     wpa_supplicant_overlay.conf \
-    wpa_supplicant_ath6kl.conf
+    p2p_supplicant_overlay.conf 
 
 # ANT+
 PRODUCT_PACKAGES += \
@@ -280,11 +279,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     libion
-
-PRODUCT_PACKAGES += \
-    ntfs-3g \
-    ntfsfix \
-    mkntfs
 
 PRODUCT_PACKAGES += \
     LatinIME \

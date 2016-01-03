@@ -1,4 +1,3 @@
-allow untrusted_app livedisplay_sysfs:file rw_file_perms;
-allow untrusted_app usbkeyboard_device:chr_file rw_file_perms;
-allow untrusted_app unlabeled:dir { read open };
-allow untrusted_app unlabeled:file { read getattr open };
+#============= untrusted_app ==============
+allow untrusted_app healthd_service:service_manager find;
+allow untrusted_app self:udp_socket ioctl;

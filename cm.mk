@@ -12,7 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Inherit from nx507j device
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
+# Inherit from NX507J device
 $(call inherit-product, device/nubia/nx507j/nx507j.mk)
 
 # Enhanced NFC
@@ -33,3 +36,6 @@ TARGET_VENDOR := Nubia
 TARGET_VENDOR_PRODUCT_NAME := NX507J
 TARGET_VENDOR_DEVICE_NAME := NX507J
 PRODUCT_BUILD_PROP_OVERRIDES += TARGET_DEVICE=NX507J PRODUCT_NAME=NX507J
+
+
+

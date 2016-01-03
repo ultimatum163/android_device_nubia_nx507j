@@ -31,9 +31,9 @@ import android.os.SystemProperties;
 public class KeyDisabler {
 
     private static String CONTROL_PATH = "/sys/devices/gpio_keys.85/disabled_keys";
-
-    public static boolean isSupported() { 
-	return true; 
+    
+    public static boolean isSupported() {
+        return true; 
     }
 
     public static boolean isActive() {

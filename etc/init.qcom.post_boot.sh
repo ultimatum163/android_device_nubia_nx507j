@@ -40,20 +40,17 @@ case "$target" in
         echo 500000 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
         ;;
 esac
-
 case "$target" in
     "msm7630_surf" | "msm7630_1x" | "msm7630_fusion")
         echo 75000 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
         echo 1 > /sys/module/pm2/parameters/idle_sleep_mode
         ;;
 esac
-
 case "$target" in
      "msm7201a_ffa" | "msm7201a_surf" | "msm7627_ffa" | "msm7627_6x" | "msm7627_surf" | "msm7630_surf" | "msm7630_1x" | "msm7630_fusion" | "msm7627a" )
         echo 245760 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
         ;;
 esac
-
 case "$target" in
     "msm8660")
      echo 1 > /sys/module/rpm_resources/enable_low_power/L2_cache
@@ -87,7 +84,6 @@ case "$target" in
      chmod -h 664 /sys/devices/system/cpu/cpu1/online
         ;;
 esac
-
 case "$target" in
     "msm8960")
          echo 1 > /sys/module/rpm_resources/enable_low_power/L2_cache
@@ -150,7 +146,6 @@ case "$target" in
          chmod -h 664 /sys/devices/system/cpu/cpu1/online
          chmod -h 664 /sys/devices/system/cpu/cpu2/online
          chmod -h 664 /sys/devices/system/cpu/cpu3/online
-         # set DCVS parameters for CPU
          echo 40000 > /sys/module/msm_dcvs/cores/cpu0/slack_time_max_us
          echo 40000 > /sys/module/msm_dcvs/cores/cpu0/slack_time_min_us
          echo 100000 > /sys/module/msm_dcvs/cores/cpu0/em_win_size_min_us
@@ -175,11 +170,9 @@ case "$target" in
          echo 500000 > /sys/module/msm_dcvs/cores/cpu3/em_win_size_max_us
          echo 0 > /sys/module/msm_dcvs/cores/cpu3/slack_mode_dynamic
          echo 1000000 > /sys/module/msm_dcvs/cores/cpu3/disable_pc_threshold
-         # set DCVS parameters for GPU
          echo 20000 > /sys/module/msm_dcvs/cores/gpu0/slack_time_max_us
          echo 20000 > /sys/module/msm_dcvs/cores/gpu0/slack_time_min_us
          echo 0 > /sys/module/msm_dcvs/cores/gpu0/slack_mode_dynamic
-         # set msm_mpdecision parameters
          echo 45000 > /sys/module/msm_mpdecision/slack_time_max_us
          echo 15000 > /sys/module/msm_mpdecision/slack_time_min_us
          echo 100000 > /sys/module/msm_mpdecision/em_win_size_min_us
@@ -191,7 +184,6 @@ case "$target" in
          echo 10 > /sys/module/msm_mpdecision/mp_em_rounding_point_min
          echo 85 > /sys/module/msm_mpdecision/mp_em_rounding_point_max
          echo 50 > /sys/module/msm_mpdecision/iowait_threshold_pct
-         #set permissions for the nodes needed by display on/off hook
          chown -h system /sys/module/msm_dcvs/cores/cpu0/slack_time_max_us
          chown -h system /sys/module/msm_dcvs/cores/cpu0/slack_time_min_us
          chown -h system /sys/module/msm_mpdecision/slack_time_max_us
@@ -242,7 +234,6 @@ case "$target" in
          esac
          ;;
 esac
-
 case "$target" in
     "msm8974")
         echo 4 > /sys/module/lpm_levels/enable_low_power/l2
@@ -329,7 +320,6 @@ case "$target" in
         echo 1 > /dev/cpuctl/cpu.notify_on_migrate
     ;;
 esac
-
 case "$target" in
     "msm8226")
         echo 4 > /sys/module/lpm_levels/enable_low_power/l2
@@ -371,7 +361,6 @@ case "$target" in
         chmod -h 664 /sys/devices/system/cpu/cpu3/online
     ;;
 esac
-
 case "$target" in
     "msm8610")
         echo 4 > /sys/module/lpm_levels/enable_low_power/l2
@@ -415,7 +404,6 @@ case "$target" in
         chmod -h 664 /sys/devices/system/cpu/cpu3/online
     ;;
 esac
-
 case "$target" in
     "apq8084")
         echo 4 > /sys/module/lpm_levels/enable_low_power/l2
@@ -466,19 +454,16 @@ case "$target" in
         chmod -h 664 /sys/devices/system/cpu/cpu3/online
     ;;
 esac
-
 case "$target" in
     "msm7627_ffa" | "msm7627_surf" | "msm7627_6x")
         echo 25000 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
         ;;
 esac
-
 case "$target" in
     "qsd8250_surf" | "qsd8250_ffa" | "qsd8650a_st1x")
         echo 50000 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
         ;;
 esac
-
 case "$target" in
     "qsd8650a_st1x")
         mount -t debugfs none /sys/kernel/debug
@@ -507,7 +492,6 @@ case "$target" in
         echo 10 > /sys/devices/platform/msm_sdcc.1/idle_timeout
         ;;
 esac
-
 # Post-setup services
 case "$target" in
     "msm8660" | "msm8960" | "msm8226" | "msm8610")
@@ -546,7 +530,6 @@ case "$target" in
     ;;
 esac
 
-# Enable Power modes and set the CPU Freq Sampling rates
 case "$target" in
      "msm7627a")
         start qosmgrd
@@ -554,37 +537,27 @@ case "$target" in
     echo 1 > /sys/module/pm2/modes/cpu1/standalone_power_collapse/idle_enabled
     echo 1 > /sys/module/pm2/modes/cpu0/standalone_power_collapse/suspend_enabled
     echo 1 > /sys/module/pm2/modes/cpu1/standalone_power_collapse/suspend_enabled
-    #SuspendPC:
     echo 1 > /sys/module/pm2/modes/cpu0/power_collapse/suspend_enabled
-    #IdlePC:
     echo 1 > /sys/module/pm2/modes/cpu0/power_collapse/idle_enabled
     echo 25000 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
     ;;
 esac
-
-# Change adj level and min_free_kbytes setting for lowmemory killer to kick in
 case "$target" in
      "msm7627a")
     echo 0,1,2,4,9,12 > /sys/module/lowmemorykiller/parameters/adj
     echo 5120 > /proc/sys/vm/min_free_kbytes
      ;;
 esac
-
-# Install AdrenoTest.apk if not already installed
 if [ -f /data/prebuilt/AdrenoTest.apk ]; then
     if [ ! -d /data/data/com.qualcomm.adrenotest ]; then
         pm install /data/prebuilt/AdrenoTest.apk
     fi
 fi
-
-# Install SWE_Browser.apk if not already installed
 if [ -f /data/prebuilt/SWE_AndroidBrowser.apk ]; then
     if [ ! -d /data/data/com.android.swe.browser ]; then
         pm install /data/prebuilt/SWE_AndroidBrowser.apk
     fi
 fi
-
-# Change adj level and min_free_kbytes setting for lowmemory killer to kick in
 case "$target" in
      "msm8660")
         start qosmgrd
@@ -592,7 +565,6 @@ case "$target" in
         echo 5120 > /proc/sys/vm/min_free_kbytes
      ;;
 esac
-
 case "$target" in
     "msm8226" | "msm8974" | "msm8610" | "apq8084" | "mpq8092" | "msm8610")
         # Let kernel know our image version/variant/crm_version
