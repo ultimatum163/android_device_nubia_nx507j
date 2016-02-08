@@ -264,8 +264,8 @@
     <bool name="config_animateScreenLights">true</bool>
 
     <!-- Indicate whether closing the lid causes the device to go to sleep and opening
-         it causes the device to wake up. 
-         The default is false.
+         it causes the device to wake up.
+         The default is false. 
     <bool name="config_lidControlsSleep">true</bool> -->
 
     <!-- Boolean indicating whether Softap requires reloading AP firmware 
@@ -325,8 +325,6 @@
          The user is forbidden from setting the brightness below this level. -->
     <integer name="config_screenBrightnessSettingMinimum">3</integer>
 
-    <!-- The duration (in milliseconds) that the radio will scan for a signal
-    when there's no network connection. If the scan doesn't timeout, use zero -->
     <!-- Default screen brightness setting.
          Must be in the range specified by minimum and maximum. -->
     <integer name="config_screenBrightnessSettingDefault">102</integer>

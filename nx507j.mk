@@ -93,12 +93,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml
 
-
 # Camera
 PRODUCT_PACKAGES += \
     libxml2 \
     camera.msm8974 \
-    Camera2
+    Snap
 
 # Connectivity Engine support
 PRODUCT_PACKAGES += \
@@ -130,7 +129,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     make_ext4fs 
 
-
 # FM
 PRODUCT_PACKAGES += \
     FMRadio \
@@ -154,9 +152,14 @@ PRODUCT_PACKAGES += \
 # Stlport
 PRODUCT_PACKAGES += \
     libstlport
+
 # Keystore
 PRODUCT_PACKAGES += \
     keystore.msm8974
+
+# Keyhandler
+ PRODUCT_PACKAGES += \
+     com.cyanogenmod.keyhandler
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -204,9 +207,11 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
     qcmediaplayer
+
 # Power
 PRODUCT_PACKAGES += \
     power.msm8974
+
 #enable/disable softkey script
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/set_softkey.sh:system/bin/set_softkey.sh
@@ -338,3 +343,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/telephony/NX512J_Z0-1.xml:system/etc/telephony/NX512J_Z0-1.xml \
     $(LOCAL_PATH)/etc/telephony/NX512J_Z78-1.xml:system/etc/telephony/NX512J_Z78-1.xml \
     $(LOCAL_PATH)/etc/telephony/NX513J_Z78-1.xml:system/etc/telephony/NX513J_Z78-1.xml
+
+PRODUCT_SYSTEM_SERVER_JARS += com.cyanogenmod.keyhandler
+ # never dexopt the keyhandler
+ $(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)

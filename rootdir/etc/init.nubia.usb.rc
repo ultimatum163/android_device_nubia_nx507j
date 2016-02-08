@@ -56,6 +56,7 @@ service nubia_adb_set /system/bin/sh /init.nubia.sh nubia_adb
 
 # USB compositions
 on property:sys.usb.config=nubia,adb
+    stop adbd
     start nubia_adb_set
     start adbd
     setprop sys.usb.state ${sys.usb.config}
@@ -63,8 +64,10 @@ on property:sys.usb.config=nubia,adb
 on property:sys.usb.config=nubia
     start nubia_set
     setprop sys.usb.state ${sys.usb.config}
+
 # USB midi configuration
 on property:sys.usb.config=midi
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFD3
@@ -72,8 +75,10 @@ on property:sys.usb.config=midi
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state ${sys.usb.config}
+
 # USB midi configuration, with adb
 on property:sys.usb.config=midi,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFD2
@@ -83,6 +88,7 @@ on property:sys.usb.config=midi,adb
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=ptp,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFD1
@@ -100,6 +106,7 @@ on property:sys.usb.config=ptp
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mtp,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFCF
@@ -117,6 +124,7 @@ on property:sys.usb.config=mtp
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mass_storage,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFCD
@@ -134,6 +142,7 @@ on property:sys.usb.config=mass_storage
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=rndis,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFCB
@@ -151,6 +160,7 @@ on property:sys.usb.config=rndis
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=modem,service,nema,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFC9
@@ -172,6 +182,7 @@ on property:sys.usb.config=modem,service,nema
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=modem,service,nema,mass_storage,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFC7
@@ -193,6 +204,7 @@ on property:sys.usb.config=modem,service,nema,mass_storage
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=diag,modem,mass_storage,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFB0
@@ -217,6 +229,7 @@ on property:sys.usb.config=diag,modem,mass_storage
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=diag,modem,service,mass_storage,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFB2
@@ -241,6 +254,7 @@ on property:sys.usb.config=diag,modem,service,mass_storage
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFC1
@@ -250,6 +264,7 @@ on property:sys.usb.config=adb
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=diag,mass_storage,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFC0
@@ -277,6 +292,7 @@ on property:sys.usb.config=charging
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=charging,adb
+    stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 19D2
     write /sys/class/android_usb/android0/idProduct FFC1
@@ -284,4 +300,3 @@ on property:sys.usb.config=charging,adb
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state ${sys.usb.config}
-

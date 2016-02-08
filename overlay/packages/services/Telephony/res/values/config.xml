@@ -14,8 +14,6 @@
      limitations under the License.
 -->
 
-<!-- Phone app resources that may need to be customized
-     for different hardware or product builds. -->
 <resources>
 
     <bool name="world_phone">true</bool>
@@ -24,8 +22,6 @@
                   are routed through the android.media.AudioManager class (true) or through
          the com.android.internal.telephony.Phone interface (false). -->
     <bool name="send_mic_mute_to_AudioManager">true</bool>
-
-    <!-- Allow emergency numbers to be logged in call log -->
     <bool name="has_in_call_noise_suppression">true</bool>
     <bool name="csp_enabled">false</bool>
 
@@ -39,8 +35,8 @@
 
     <!-- Show APN Settings for some CDMA carriers -->
     <bool name="config_show_apn_setting_cdma">true</bool>
+
     <bool name="config_uplmn_for_usim">true</bool>
-    
     <!-- Flag whether to enable Proximity setting-->
     <bool name="config_proximity_enable" translatable="false">true</bool>
 

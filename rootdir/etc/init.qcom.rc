@@ -34,7 +34,8 @@ on early-init
 
 on init
     # Preload the BoringSSL wrapper
-    export LD_PRELOAD "/system/lib/libboringssl-compat.so:/system/lib/libnubia.so"
+    export LD_PRELOAD "/system/lib/libboringssl-compat.so"
+    export LD_SHIM_LIBS /system/lib/libbuffer_manager.so|libnubia.so
 
     # Set permissions for persist partition
     mkdir /persist 0771 system system
@@ -449,7 +450,6 @@ on post-fs-data
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
 
-
     # Create the directories used by CnE subsystem
     mkdir /data/connectivity 0771 system system
     chown system system /data/connectivity
@@ -530,7 +530,6 @@ service usbhub_init /system/bin/usbhub_init
    user root
    disabled
    oneshot
-
 
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
@@ -690,7 +689,6 @@ service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
     group bluetooth net_bt_admin misc net_bt_stack qcom_diag
     disabled
     oneshot
-
 
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
@@ -1034,13 +1032,14 @@ on property:persist.usb.hvdcp.detect=false
     stop hvdcp
 
 service charger_monitor /system/bin/charger_monitor
-    user system
-    group system
+    user root
+    group root
     disabled
 
 service qbcharger /charger -m 1
     disabled
     oneshot
+    seclabel u:r:healthd:s0
 
 on property:sys.qbcharger.enable=true
     start qbcharger
