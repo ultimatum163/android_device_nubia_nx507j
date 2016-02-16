@@ -95,7 +95,7 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
 TARGET_KERNEL_SOURCE := kernel/nubia/nx507j
 TARGET_KERNEL_ARCH := arm
-TARGET_KERNEL_CONFIG := cm-NX507J_defconfig
+TARGET_KERNEL_CONFIG := cm-nx507j_defconfig
 TARGET_ZTEMT_DTS := true
 
 # Power
@@ -145,7 +145,7 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
 
-# ANT+
+# Ant or qualcomm-uart ?
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Camera

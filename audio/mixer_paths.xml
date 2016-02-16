@@ -868,6 +868,7 @@
     <path name="single-mic-side">
         <path name="adc3" />
     </path>
+
     <path name="anc-handset">
         <ctl name="ANC Function" value="ON" />
         <ctl name="SLIM RX1 MUX" value="AIF1_PB" />
@@ -1113,6 +1114,7 @@
 
     <path name="voice-rec-mic">
         <path name="handset-mic" />
+        <ctl name="ADC1 Volume" value="19" />
     </path>
 
     <path name="camcorder-mic">
@@ -1192,6 +1194,8 @@
 
     <path name="handset-stereo-dmic-ef">
         <path name="speaker-dmic-endfire" />
+        <ctl name="ADC1 Volume" value="12" />
+        <ctl name="ADC3 Volume" value="12" />
     </path>
 
     <path name="speaker-stereo-dmic-ef">
@@ -1201,6 +1205,7 @@
     <path name="nofluence-dmic-endfire">
         <path name="dmic-endfire" />
     </path>
+
     <path name="voice-dmic-ef-tmus">
         <path name="dmic-endfire" />
     </path>

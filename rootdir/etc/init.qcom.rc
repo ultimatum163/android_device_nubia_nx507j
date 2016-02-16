@@ -40,7 +40,6 @@ on init
     mkdir /storage 0550 system sdcard_r
     mkdir /storage/emulated 0555 root root
     mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /storage/usbdisk 0000 system system
     mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
     mkdir /storage/sdcard1 0700 root root
     mkdir /storage/usbdisk 0700 root root
@@ -51,7 +50,7 @@ on init
     export EMULATED_STORAGE_TARGET /storage/emulated
     export OTG_STORAGE /storage/usbdisk
 
-    # Support legacy paths
+    # for backwards compatibility
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
     symlink /storage/emulated/legacy /storage/sdcard0
@@ -110,6 +109,8 @@ on boot
     chmod 2755 /data/misc/perfd
     mkdir /data/system/perfd 0770 root system
     chmod 2770 /data/system/perfd
+
+    mkdir /persist/drm 0770 system system
 
     setprop wifi.interface wlan0
 
@@ -480,7 +481,7 @@ on post-fs-data
     mkdir /data/misc/dash 0770 media audio
 
     # Create directory used by display clients
-    mkdir /data/misc/display 0770 system graphics
+    mkdir /data/misc/display 0770 root system
 
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
     # We chown/chmod /persist again so because mount is run as root + defaults
