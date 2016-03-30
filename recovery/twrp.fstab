@@ -1,5 +1,5 @@
 /system 	ext4 	/dev/block/platform/msm_sdcc.1/by-name/system 		flags=display="System";flashimg=1
-/data 		ext4 	/dev/block/platform/msm_sdcc.1/by-name/userdata		flags=ignoreblkid length=-16384
+/data 		ext4 	/dev/block/platform/msm_sdcc.1/by-name/userdata		flags=encryptable=footer;length=-16384
 /cache 		ext4 	/dev/block/platform/msm_sdcc.1/by-name/cache		flags=display="Cache"
 /persist 	ext4 	/dev/block/platform/msm_sdcc.1/by-name/persist		flags=display="Persist";backup=1
 /firmware 	vfat 	/dev/block/platform/msm_sdcc.1/by-name/modem		flags=display="Modem";backup=1

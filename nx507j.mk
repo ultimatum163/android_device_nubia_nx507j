@@ -157,10 +157,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     keystore.msm8974
 
-# Keyhandler
- PRODUCT_PACKAGES += \
-     com.cyanogenmod.keyhandler
-
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8974
@@ -343,7 +339,3 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/telephony/NX512J_Z0-1.xml:system/etc/telephony/NX512J_Z0-1.xml \
     $(LOCAL_PATH)/etc/telephony/NX512J_Z78-1.xml:system/etc/telephony/NX512J_Z78-1.xml \
     $(LOCAL_PATH)/etc/telephony/NX513J_Z78-1.xml:system/etc/telephony/NX513J_Z78-1.xml
-
-PRODUCT_SYSTEM_SERVER_JARS += com.cyanogenmod.keyhandler
- # never dexopt the keyhandler
- $(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)
