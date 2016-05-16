@@ -134,11 +134,6 @@ PRODUCT_PACKAGES += \
     FM2 \
     libqcomfm_jni \
     qcom.fmradio
-    #FMRadio \
-    #libfmjni
-
-# Dot View Case
-PRODUCT_PACKAGES += Dotcase
 
 # LOWI
 PRODUCT_COPY_FILES += \

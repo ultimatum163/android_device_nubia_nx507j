@@ -71,7 +71,7 @@ TARGET_KRAIT_BIONIC_PLDSIZE := 64
 # Kernel
 # KERNEL_TOOLCHAIN_PREFIX := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-cortex_a15-linux-gnueabihf-linaro_4.9/bin/arm-cortex_a15-linux-gnueabihf-
 BOARD_DTBTOOL_ARGS := --force-v2
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissive
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -88,12 +88,12 @@ TARGET_POWERHAL_VARIANT := qcom
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_NEW_SAMPLE_RATE := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
-AUDIO_FEATURE_ENABLED_FLUENCE := true
+#AUDIO_FEATURE_ENABLED_FLUENCE := true
 AUDIO_FEATURE_ENABLED_EXTERNAL_SPEAKER := true
 AUDIO_FEATURE_ENABLED_USBAUDIO := true
 AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
 AUDIO_FEATURE_ENABLED_LOW_LATENCY_CAPTURE := true
-AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
+#AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
 AUDIO_FEATURE_ENABLED_HWDEP_CAL := true
 USE_CUSTOM_AUDIO_POLICY := 1
 
@@ -159,6 +159,9 @@ BOARD_HARDWARE_CLASS := \
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := false
 
+# Keymaster
+TARGET_PROVIDES_KEYMASTER := true
+
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
@@ -223,3 +226,8 @@ SKIP_BOOT_JARS_CHECK := true
 include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += device/nubia/nx507j/sepolicy
 
+# Sensors
+USE_SENSOR_MULTI_HAL := true
+
+# Releasetools
+TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)

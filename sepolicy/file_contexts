@@ -1,2 +1,5 @@
-/dev/ttyHSL1                            u:object_r:ir_device:s0
-/dev/bcm2079x				u:object_r:bcmnfc_device:s0
+/dev/ttyHSL1                            		u:object_r:ir_device:s0
+/dev/bcm2079x						u:object_r:bcmnfc_device:s0
+
+# Thermal-engine
+/system/bin/thermal-engine				u:object_r:thermal-engine_exec:s0

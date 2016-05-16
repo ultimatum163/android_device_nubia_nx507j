@@ -168,7 +168,7 @@ lib/hw/sensors.oem.so
 vendor/lib/hw/sensors.msm8974.so
 
 # Thermal
-bin/thermal-engine
+vendor/bin/thermal-engine
 
 #vendor lib
 vendor/lib/libacdbloader.so
