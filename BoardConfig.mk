@@ -22,7 +22,6 @@ PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:syste
 	frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
 	frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, $(PRODUCT_COPY_FILES))
 
-
 # QCRIL
 TARGET_RIL_VARIANT := caf
 SIM_COUNT := 2
@@ -69,7 +68,6 @@ TARGET_KRAIT_BIONIC_BBTHRESH := 64
 TARGET_KRAIT_BIONIC_PLDSIZE := 64
 
 # Kernel
-# KERNEL_TOOLCHAIN_PREFIX := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-cortex_a15-linux-gnueabihf-linaro_4.9/bin/arm-cortex_a15-linux-gnueabihf-
 BOARD_DTBTOOL_ARGS := --force-v2
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissive
 BOARD_KERNEL_SEPARATED_DT := true
@@ -159,9 +157,6 @@ BOARD_HARDWARE_CLASS := \
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := false
 
-# Keymaster
-TARGET_PROVIDES_KEYMASTER := true
-
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
@@ -225,9 +220,6 @@ SKIP_BOOT_JARS_CHECK := true
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += device/nubia/nx507j/sepolicy
-
-# Sensors
-USE_SENSOR_MULTI_HAL := true
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)
