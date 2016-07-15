@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The CyanogenMod Project
+ * Copyright (C) 2015 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,7 @@
 package org.cyanogenmod.hardware;
 
 import org.cyanogenmod.hardware.util.FileUtils;
-import java.io.File;
-
-import java.io.File;
+import android.os.SystemProperties;
 
 /*
  * Disable capacitive keys
@@ -32,10 +30,10 @@ import java.io.File;
 
 public class KeyDisabler {
 
-    private static String CONTROL_PATH = "/data/tp/keypad_enable";
+    private static String CONTROL_PATH = "/sys/devices/gpio_keys.85/disabled_keys";
 
-    public static boolean isSupported() {
-        return new File(CONTROL_PATH).exists();
+    public static boolean isSupported() { 
+	return true; 
     }
 
     public static boolean isActive() {
@@ -43,6 +41,7 @@ public class KeyDisabler {
     }
 
     public static boolean setActive(boolean state) {
+	SystemProperties.set ( "softkey.change" ,  "1" );
         return FileUtils.writeLine(CONTROL_PATH, (state ? "0" : "1"));
     }
 

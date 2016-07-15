@@ -147,6 +147,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libboringssl-compat
 
+# Stlport
+PRODUCT_PACKAGES += \
+    libstlport
+
 # Keystore
 PRODUCT_PACKAGES += \
     keystore.msm8974
@@ -201,6 +205,10 @@ PRODUCT_BOOT_JARS += \
 # Power
 PRODUCT_PACKAGES += \
     power.msm8974
+
+#enable/disable softkey script
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/etc/set_softkey.sh:system/bin/set_softkey.sh
 
 # Ramdisk
 PRODUCT_PACKAGES += \

@@ -36,6 +36,8 @@ PROTOBUF_SUPPORTED := true
 TARGET_OTA_ASSERT_DEVICE := NX507J,nx507j,cm_NX507J,cm_nx507j,NX507j,jNX507
 
 # Partitions
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 25165824
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1610612736
@@ -154,8 +156,12 @@ BOARD_HARDWARE_CLASS := \
     $(LOCAL_PATH)/cmhw \
     hardware/cyanogen/cmhw
 
-# Encryption
-TARGET_HW_DISK_ENCRYPTION := false
+# Init
+TARGET_INIT_VENDOR_LIB := libinit_msm
+
+# Init msm8974
+TARGET_INIT_VENDOR_LIB := libinit_msm8974
+TARGET_RECOVERY_DEVICE_MODULES := libinit_msm8974
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
@@ -204,18 +210,21 @@ TW_NO_USB_STORAGE := true
 TW_INCLUDE_CRYPTO := true
 TW_SCREEN_BLANK_ON_BOOT := true
 BOARD_SUPPRESS_SECURE_ERASE := true
+TW_INTERNAL_STORAGE_PATH := "/data/media"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
 RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
-BOARD_HAS_NO_SELECT_BUTTON := true
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
-
 endif
 
-# dex-preoptimization to speed up first boot sequence
-WITH_DEXPREOPT := false
-
-SKIP_BOOT_JARS_CHECK := true
+# Enable dexpreopt to speed boot time
+ifeq ($(HOST_OS),linux)
+  ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
+    ifeq ($(WITH_DEXPREOPT_BOOT_IMG_ONLY),)
+      WITH_DEXPREOPT_BOOT_IMG_ONLY := true
+    endif
+  endif
+endif
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk

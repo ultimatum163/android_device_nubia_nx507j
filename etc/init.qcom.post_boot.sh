@@ -258,7 +258,6 @@ case "$target" in
         echo 1 > /sys/module/msm_pm/modes/cpu2/retention/idle_enabled
         echo 1 > /sys/module/msm_pm/modes/cpu3/retention/idle_enabled
         echo 0 > /sys/module/msm_thermal/core_control/enabled
-        #echo Y > /sys/module/clock_krait_8974/parameters/boost
         echo 1 > /sys/devices/system/cpu/cpu1/online
         echo 1 > /sys/devices/system/cpu/cpu2/online
         echo 1 > /sys/devices/system/cpu/cpu3/online
@@ -273,16 +272,22 @@ case "$target" in
                 do
                     echo "cpubw_hwmon" > $devfreq_gov
                 done
-                echo "intelliactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-                echo "intelliactive" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
-                echo "intelliactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-                echo "intelliactive" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
-                echo "20000 1400000:40000 1700000:20000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+                echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+                echo "interactive" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+                echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+                echo "interactive" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+                echo "19000 1400000:39000 1700000:19000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+                echo 99 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+                echo 1190400 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+                echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+                echo "85 1500000:90 1800000:70" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
+                echo 40000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
                 echo 20 > /sys/module/cpu_boost/parameters/boost_ms
                 echo 1728000 > /sys/module/cpu_boost/parameters/sync_threshold
+                echo 100000 > /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
                 echo 1497600 > /sys/module/cpu_boost/parameters/input_boost_freq
                 echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
-                setprop ro.qualcomm.perf.cores_online 1
+                setprop ro.qualcomm.perf.cores_online 2
             ;;
             *)
                 echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor

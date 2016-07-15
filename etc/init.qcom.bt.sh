@@ -51,12 +51,6 @@ failed ()
   exit $2
 }
 
-program_bdaddr ()
-{
-  /system/bin/btnvtool -O
-  logi "Bluetooth Address programmed successfully"
-}
-
 #
 # enable bluetooth profiles dynamically
 #
@@ -153,14 +147,14 @@ config_bt ()
            setprop ro.qualcomm.bt.hci_transport smd
        fi
        ;;
-    "msm8974" | "msm8226" | "msm8610" )
+    "msm8974" | "msm8226" | "msm8610" | "msm8916" | "msm8909" | "msm8952" )
        if [ "$btsoc" != "ath3k" ]
        then
            setprop ro.bluetooth.hfp.ver 1.7
            setprop ro.qualcomm.bt.hci_transport smd
        fi
        ;;
-    "apq8084" | "mpq8092" )
+    "apq8084" | "mpq8092" | "msm8994" )
        if [ "$btsoc" != "rome" ]
        then
            setprop ro.qualcomm.bt.hci_transport smd
@@ -215,7 +209,6 @@ kill_hciattach ()
 logi "init.qcom.bt.sh config = $config"
 case "$config" in
     "onboot")
-        program_bdaddr
         config_bt
         exit 0
         ;;
