@@ -1049,7 +1049,7 @@ service charger_monitor /system/bin/charger_monitor
 service qbcharger /charger -m 1
     disabled
     oneshot
-    seclabel u:r:healthd:s0
+	seclabel u:r:healthd:s0
 
 on property:sys.qbcharger.enable=true
     start qbcharger

@@ -18,10 +18,6 @@
 
 LOCAL_PATH := device/nubia/nx507j
 
-PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
-	frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
-	frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, $(PRODUCT_COPY_FILES))
-
 # QCRIL
 TARGET_RIL_VARIANT := caf
 SIM_COUNT := 2
@@ -71,7 +67,7 @@ TARGET_KRAIT_BIONIC_PLDSIZE := 64
 
 # Kernel
 BOARD_DTBTOOL_ARGS := --force-v2
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 androidboot.selinux=permissive
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -155,9 +151,6 @@ BOARD_USES_CYANOGEN_HARDWARE := true
 BOARD_HARDWARE_CLASS := \
     $(LOCAL_PATH)/cmhw \
     hardware/cyanogen/cmhw
-
-# Init
-TARGET_INIT_VENDOR_LIB := libinit_msm
 
 # Init msm8974
 TARGET_INIT_VENDOR_LIB := libinit_msm8974

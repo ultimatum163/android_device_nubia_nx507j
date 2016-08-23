@@ -14,7 +14,7 @@ bin/mpdecision
 #bin/ml_daemon
 #bin/ks
 bin/perfd
-bin/pfm
+#bin/pfm
 #bin/rild
 bin/uiautomator
 bin/gpsone_daemon
@@ -168,7 +168,7 @@ lib/hw/sensors.oem.so
 vendor/lib/hw/sensors.msm8974.so
 
 # Thermal
-vendor/bin/thermal-engine
+bin/thermal-engine
 
 #vendor lib
 vendor/lib/libacdbloader.so
@@ -598,6 +598,7 @@ vendor/lib/libtime_genoff.so
 vendor/lib/libTimeService.so
 vendor/lib/libtzdrmgenprov.so
 vendor/lib/libulp2.so
+vendor/lib/libuiblur.so
 vendor/lib/libvendorconn.so
 vendor/lib/libxml.so
 vendor/lib/libxtadapter.so
