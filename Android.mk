@@ -24,6 +24,19 @@ LOCAL_PATH := $(call my-dir)
 ifeq ($(TARGET_DEVICE),nx507j)
 include $(call all-makefiles-under,$(LOCAL_PATH))
 include $(CLEAR_VARS)
+
+KEYMASTER_IMAGES := \
+    keymaste.b00 keymaste.b01 keymaste.b02 keymaste.b03 keymaste.mdt
+
+KEYMASTER_SYMLINKS :=$(addprefix $(TARGET_OUT_ETC)/firmware/,$(KEYMASTER_IMAGES))
+$(KEYMASTER_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "keymaster firmware link: $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf /firmware/image/$(call vfatfilename,$(notdir $@)) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(KEYMASTER_SYMLINKS)
+
 FIRMWARE_WCD9320_IMAGES := \
     wcd9320_anc.bin wcd9320_mad_audio.bin wcd9320_mbhc.bin
 FIRMWARE_WCD9320_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/wcd9320/,$(notdir $(FIRMWARE_WCD9320_IMAGES)))

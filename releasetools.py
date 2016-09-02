@@ -1,4 +1,4 @@
-# Copyright (C) 2012 The Android Open Source Project
+# Copyright (C) 2015 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,20 +12,51 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Add backup for efs during flashing of ota-zip"""
+"""Emit commands needed for ZTE devices during OTA installation
+(installing the aboot/modem/rpm/sbl/tz/splash/sbl1/)."""
 
 import common
+import re
+import sha
 
-def Thanks(self):
-	self.script.AppendExtra('ui_print("=============================================");')
-	self.script.AppendExtra('ui_print("   ROM based Lollipop 5.1.1 by ultimatum163  ");')
-	self.script.AppendExtra('ui_print("                   Thanks:                   ");')
-	self.script.AppendExtra('ui_print("             proDOOMman,PaoloW8,Buslik       ");')
-	self.script.AppendExtra('ui_print("=============================================");')
+def FullOTA_Assertions(info):
+  print "FullOTA_Assertions not implemented"
 
-def FullOTA_Assertions(self):
-	Thanks(self)
+def IncrementalOTA_Assertions(info):
+  print "IncrementalOTA_Assertions not implemented"
 
-def IncrementalOTA_Assertions(self):
-	Thanks(self)
+def InstallImage(img_name, img_file, partition, info):
+  common.ZipWriteStr(info.output_zip, img_name, img_file)
+  info.script.AppendExtra(('package_extract_file("' + img_name + '", "/dev/block/bootdevice/by-name/' + partition + '");'))
 
+image_partitions = {
+   'emmc_appsboot.mbn' : 'aboot',
+   'rpm.mbn'           : 'rpm',
+   'tz.mbn'            : 'tz',
+   'NON-HLOS.bin'      : 'modem',
+   'splash.img'        : 'splash',
+   'sbl1.mbn'          : 'sbl1'
+}
+
+def FullOTA_InstallEnd(info):
+  info.script.Print("Writing radio image...")
+  for k, v in image_partitions.iteritems():
+    try:
+      img_file = info.input_zip.read("RADIO/" + k)
+      info.script.Print("update image " + k + "...")
+      InstallImage(k, img_file, v, info)
+    except KeyError:
+      print "warning: no " + k + " image in input target_files; not flashing " + k
+
+
+def IncrementalOTA_InstallEnd(info):
+  for k, v in image_partitions.iteritems():
+    try:
+      source_file = info.source_zip.read("RADIO/" + k)
+      target_file = info.target_zip.read("RADIO/" + k)
+      if source_file != target_file:
+        InstallImage(k, target_file, v, info)
+      else:
+        print k + " image unchanged; skipping"
+    except KeyError:
+      print "warning: " + k + " image missing from target; not flashing " + k

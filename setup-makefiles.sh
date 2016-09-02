@@ -298,6 +298,15 @@ LOCAL_MODULE_CLASS := APPS
 LOCAL_CERTIFICATE := platform
 include \$(BUILD_PREBUILT)
 
+ifeq (\$(LOCAL_PATH)/radio, \$(wildcard \$(LOCAL_PATH)/radio))
+RADIO_FILES := \$(shell cd \$(LOCAL_PATH)/radio ; ls)
+\$(foreach f, \$(RADIO_FILES), \\
+    \$(call add-radio-file,radio/\$(f)))
 endif
 
+endif
 EOF
+
+# Append the calls to firmware images
+
+# We are done!

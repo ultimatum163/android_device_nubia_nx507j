@@ -64,7 +64,6 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # call dalvik heap config
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
@@ -206,9 +205,6 @@ PRODUCT_BOOT_JARS += \
 # Power
 PRODUCT_PACKAGES += \
     power.msm8974
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/etc/powerprofile.sh:system/bin/powerprofile.sh
 
 #enable/disable softkey script
 PRODUCT_COPY_FILES += \
