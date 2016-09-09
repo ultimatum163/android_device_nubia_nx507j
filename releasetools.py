@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """Emit commands needed for ZTE devices during OTA installation
-(installing the aboot/modem/rpm/sbl/tz/bluetooth/hyp/pmic images)."""
+(installing the aboot/modem/rpm/sbl1/tz/splash)."""
 
 import common
 import re
@@ -27,7 +27,7 @@ def IncrementalOTA_Assertions(info):
 
 def InstallImage(img_name, img_file, partition, info):
   common.ZipWriteStr(info.output_zip, img_name, img_file)
-  info.script.AppendExtra(('package_extract_file("' + img_name + '", "/dev/block/bootdevice/by-name/' + partition + '");'))
+  info.script.AppendExtra(('package_extract_file("' + img_name + '", "/dev/block/platform/msm_sdcc.1/by-name/' + partition + '");'))
 
 image_partitions = {
    'emmc_appsboot.mbn' : 'aboot',

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The CyanogenMod Project
+ * Copyright (C) 2016 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,22 +16,23 @@
 
 package org.cyanogenmod.hardware;
 
-import org.cyanogenmod.hardware.util.FileUtils;
-import java.io.File;
+import org.cyanogenmod.internal.util.FileUtils;
 
 public class VibratorHW {
     private static String LEVEL_PATH = "/sys/class/timed_output/vibrator/vtg_level";
+    private static String MAX_PATH = "/sys/class/timed_output/vibrator/vtg_max";
+    private static String MIN_PATH = "/sys/class/timed_output/vibrator/vtg_min";
 
     public static boolean isSupported() {
-        return new File(LEVEL_PATH).exists();
+        return FileUtils.isFileWritable(LEVEL_PATH);
     }
 
     public static int getMaxIntensity()  {
-        return 31;
+        return Integer.parseInt(FileUtils.readOneLine(MAX_PATH));
     }
 
     public static int getMinIntensity()  {
-        return 12;
+        return Integer.parseInt(FileUtils.readOneLine(MIN_PATH));
     }
 
     public static int getWarningThreshold()  {
@@ -43,7 +44,7 @@ public class VibratorHW {
     }
 
     public static int getDefaultIntensity()  {
-        return 22;
+        return getMaxIntensity();
     }
 
     public static boolean setIntensity(int intensity)  {

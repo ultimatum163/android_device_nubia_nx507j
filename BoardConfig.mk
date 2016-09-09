@@ -18,6 +18,11 @@
 
 LOCAL_PATH := device/nubia/nx507j
 
+PRODUCT_COPY_FILES := $(filter-out frameworks/base/data/keyboards/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
+	frameworks/base/data/keyboards/Generic.kl:system/usr/keylayout/Generic.kl \
+	frameworks/base/data/keyboards/Generic.kcm:system/usr/keychars/Generic.kcm, $(PRODUCT_COPY_FILES))
+
+
 # QCRIL
 TARGET_RIL_VARIANT := caf
 SIM_COUNT := 2
@@ -145,12 +150,15 @@ COMMON_GLOBAL_CFLAGS += -DCAMERA_VENDOR_L_COMPAT
 TARGET_NO_RPC := true
 
 # CMHW
-#BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw/
 TARGET_TAP_TO_WAKE_NODE := "/data/tp/easy_wakeup_gesture"
 BOARD_USES_CYANOGEN_HARDWARE := true
 BOARD_HARDWARE_CLASS := \
     $(LOCAL_PATH)/cmhw \
     hardware/cyanogen/cmhw
+
+# QCNE
+BOARD_USES_QCNE := true
+TARGET_LDPRELOAD := libNimsWrap.so
 
 # Init msm8974
 TARGET_INIT_VENDOR_LIB := libinit_msm8974
@@ -162,9 +170,8 @@ TARGET_PROVIDES_LIBLIGHT := true
 # Charger
 BOARD_CHARGER_SHOW_PERCENTAGE := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
-BOARD_CHARGER_DISABLE_INIT_BLANK := true
-BOARD_HAL_STATIC_LIBRARIES += \
-    libhealthd.msm8974
+#BOARD_CHARGER_DISABLE_INIT_BLANK := true
+BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072
@@ -209,6 +216,9 @@ RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 endif
+
+#Disable memcpy_base.S optimization
+TARGET_CPU_MEMCPY_BASE_OPT_DISABLE := true
 
 # Enable dexpreopt to speed boot time
 ifeq ($(HOST_OS),linux)

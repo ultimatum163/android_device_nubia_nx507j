@@ -1,4 +1,4 @@
-#bin/cnd
+bin/cnd
 bin/fm_qsoc_patches
 bin/fmconfig
 #bin/hvdcp
@@ -155,8 +155,14 @@ bin/rmt_storage
 #lib/libril.so
 #lib/libreference-ril.so
 #lib/librilutils.so
+etc/cne/andsfCne.xml
+etc/cne/SwimConfig.xml
+etc/permissions/cneapiclient.xml
+etc/permissions/com.quicinc.cne.xml
 etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
+-framework/cneapiclient.jar
+-framework/com.quicinc.cne.jar
 -framework/qcnvitems.jar
 -framework/qcrilhook.jar
 -priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
@@ -562,7 +568,7 @@ vendor/lib/libqmi_encdec.so
 vendor/lib/libqomx_jpegdec.so
 vendor/lib/libqomx_jpegenc.so
 vendor/lib/libQSEEComAPI.so
-vendor/lib/libqti-perfd-client.so
+vendor/lib/libqc-opt.so
 vendor/lib/libquipc_os_api.so
 vendor/lib/libquipc_ulp_adapter.so
 vendor/lib/libril-qc-qmi-1.so

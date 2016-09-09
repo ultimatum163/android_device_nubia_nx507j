@@ -104,9 +104,9 @@ PRODUCT_PACKAGES += \
     libcnefeatureconfig
 
 # Charger
-PRODUCT_PACKAGES += \
-    charger \
-    charger_res_images
+#PRODUCT_PACKAGES += \
+#    charger \
+#    charger_res_images
 
 # Display
 PRODUCT_PACKAGES += \
@@ -212,7 +212,6 @@ PRODUCT_COPY_FILES += \
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-    init.rc \
     fstab.qcom \
     init.class_main.sh \
     init.mdm.sh \
@@ -224,7 +223,9 @@ PRODUCT_PACKAGES += \
     init.recovery.qcom.rc \
     init.qcom.sh \
     init.qcom.ssr.sh \
+    init.qcom.usb.rc \
     init.qcom.usb.sh \
+    init.qcom.power.rc \
     init.target.rc \
     init.trace.rc \
     ueventd.qcom.rc \
@@ -327,9 +328,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/usr/idc/cyttsp4_mt.idc:system/usr/idc/cyttsp4_mt.idc \
     $(LOCAL_PATH)/usr/idc/input_proxy.idc:system/usr/idc/input_proxy.idc \
+    $(LOCAL_PATH)/usr/keychars/Generic.kcm:system/usr/keychars/Generic.kcm \
+    $(LOCAL_PATH)/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
     $(LOCAL_PATH)/usr/keylayout/atmel_mxt_ts.kl:system/usr/keylayout/atmel_mxt_ts.kl \
     $(LOCAL_PATH)/usr/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl \
     $(LOCAL_PATH)/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    $(LOCAL_PATH)/usr/keylayout/Generic.kl:system/usr/keylayout/Generic.kl
 
 # Telephony
 PRODUCT_COPY_FILES += \

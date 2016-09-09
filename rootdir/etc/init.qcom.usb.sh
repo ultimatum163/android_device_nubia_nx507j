@@ -27,26 +27,6 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
-# Update USB serial number from persist storage if present, if not update
-# with value passed from kernel command line, if none of these values are
-# set then use the default value. This order is needed as for devices which
-# do not have unique serial number.
-# User needs to set unique usb serial number to persist.usb.serialno
-#
-serialno=`getprop persist.usb.serialno`
-case "$serialno" in
-    "")
-    serialnum=`getprop ro.serialno`
-    case "$serialnum" in
-        "");; #Do nothing, use default serial number
-        *)
-        echo "$serialnum" > /sys/class/android_usb/android0/iSerial
-    esac
-    ;;
-    *)
-    echo "$serialno" > /sys/class/android_usb/android0/iSerial
-esac
-
 chown -h root.system /sys/devices/platform/msm_hsusb/gadget/wakeup
 chmod -h 220 /sys/devices/platform/msm_hsusb/gadget/wakeup
 
@@ -101,20 +81,19 @@ echo 1 > /sys/class/android_usb/f_mass_storage/lun1/nofua
 usb_config=`getprop persist.sys.usb.config`
 build_type=`getprop ro.build.type`
 
-#case "$usb_config" in
-#    "" | "adb" | "none") #USB persist config not set, select default configuration
-#      case "$build_type" in
-#          "eng" | "userdebug")
-#             setprop persist.sys.usb.config nubia,adb
-#           ;;
-#          *) 	
-#            setprop persist.sys.usb.config nubia
-#           ;;
-#      esac
-#     ;;
-#	  * ) ;; #USB persist config exists, do nothing
-#esac	 		
-
+case "$usb_config" in
+    "" | "adb" | "none") #USB persist config not set, select default configuration
+      case "$build_type" in
+          "eng")
+             setprop persist.sys.usb.config nubia,adb
+           ;;
+          *) 	
+            setprop persist.sys.usb.config nubia
+           ;;
+      esac
+     ;;
+	  * ) ;; #USB persist config exists, do nothing
+esac	 		
 #
 # Add support for exposing lun0 as cdrom in mass-storage
 #

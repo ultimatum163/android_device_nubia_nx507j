@@ -43,7 +43,6 @@ on init
 on fs
     mount_all fstab.qcom
 	
-
     restorecon_recursive   /persist
     mkdir /persist/data 0700 system system
     mkdir /persist/data/sfs 0700 system system
@@ -58,10 +57,6 @@ on post-fs-data
 
 on boot
     insmod /system/lib/modules/adsprpc.ko
-
-    # exFAT kernel module
-    #insmod /system/lib/modules/exfat.ko
-
 # access permission for secure touch
     chmod 0660 /sys/devices/f9923000.i2c/i2c-1/1-004a/secure_touch_enable
     chmod 0440 /sys/devices/f9923000.i2c/i2c-1/1-004a/secure_touch
@@ -71,16 +66,9 @@ on boot
     chmod 0440 /sys/devices/f9924000.i2c/i2c-2/2-004a/secure_touch
     chown system drmrpc /sys/devices/f9924000.i2c/i2c-2/2-004a/secure_touch_enable
     chown system drmrpc /sys/devices/f9924000.i2c/i2c-2/2-004a/secure_touch
-
+    
 # Prevents permission denied error for telephony
     chmod 0644 /proc/cmdline
-
-# Allow usb charging to be disabled persistently
-on property:persist.usb.chgdisabled=1
-    write /sys/class/power_supply/battery/charging_enabled 0
-
-on property:persist.usb.chgdisabled=0
-    write /sys/class/power_supply/battery/charging_enabled 1
 
 # bt_hsic_control
 service bt_hsic_control /system/bin/sh /system/etc/hsic.control.bt.sh
@@ -120,9 +108,7 @@ service qseecomd /system/bin/qseecomd
    group root
 
 service mpdecision /system/bin/mpdecision --avg_comp
-   class main
    user root
-   group system
    disabled
 
 service qosmgrd /system/bin/qosmgr /system/etc/qosmgr_rules.xml
@@ -133,10 +119,10 @@ service qosmgrd /system/bin/qosmgr /system/etc/qosmgr_rules.xml
 service thermal-engine /system/bin/thermal-engine --config /system/etc/thermal-engine-8974.conf
    class main
    user root
-   group root
    socket thermal-send-client stream 0666 system system
    socket thermal-recv-client stream 0660 system system
    socket thermal-recv-passive-client stream 0666 system system
+   group root
 
 service time_daemon /system/bin/time_daemon
    class late_start
@@ -158,23 +144,12 @@ service wcnss-service /system/bin/wcnss_service
     user system
     group system wifi radio
     oneshot
-
-service pfm /system/bin/pfm
-    class late_start
-    user system
-    group system drmrpc mount
-
-on charger
-    trigger ffbm
-
+    
 service set_softkey /system/bin/set_softkey.sh
     user root
+    group root
     oneshot
-    disabled
 
 on property:softkey.change=1
     start set_softkey
-
-on property:dev.bootcomplete=1
-    setprop sys.io.scheduler "bfq"
 
