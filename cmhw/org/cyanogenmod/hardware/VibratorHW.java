@@ -16,7 +16,7 @@
 
 package org.cyanogenmod.hardware;
 
-import org.cyanogenmod.internal.util.FileUtils;
+import org.cyanogenmod.hardware.util.FileUtils;
 
 public class VibratorHW {
     private static String LEVEL_PATH = "/sys/class/timed_output/vibrator/vtg_level";

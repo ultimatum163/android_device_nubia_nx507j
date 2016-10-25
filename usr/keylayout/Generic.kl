@@ -121,9 +121,10 @@ key 98    NUMPAD_DIVIDE
 key 99    SYSRQ
 key 100   ALT_RIGHT
 # key 101 "KEY_LINEFEED"
-#/* modified by ZTEMT 2014.11.5 */
-key 102   HOME              VIRTUAL
-#/* ZTEMT END */
+#NUBIA ADD START
+#key 102   MOVE_HOME
+key 102   HOME    VIRTUAL
+#NUBIA ADD END
 key 103   DPAD_UP
 key 104   PAGE_UP
 key 105   DPAD_LEFT
@@ -160,9 +161,10 @@ key 128   MEDIA_STOP
 # key 136 "KEY_FIND"
 # key 137 "KEY_CUT"
 # key 138 "KEY_HELP"
-#/* modified by ZTEMT 2014.11.5 */
-key 139   MENU              VIRTUAL
-#/* ZTEMT END */
+#NUBIA ADD START
+#key 139   MENU
+key 139   MENU    VIRTUAL
+#NUBIA ADD END
 key 140   CALCULATOR
 # key 141 "KEY_SETUP"
 key 142   SLEEP
@@ -181,9 +183,10 @@ key 152   POWER
 key 155   ENVELOPE
 key 156   BOOKMARK
 # key 157 "KEY_COMPUTER"
-#/* modified by ZTEMT 2014.11.5 */
-key 158   BACK              VIRTUAL
-#/* ZTEMT END */
+#NUBIA ADD START
+#key 158   BACK
+key 158   BACK    VIRTUAL
+#NUBIA ADD END
 key 159   FORWARD
 key 160   MEDIA_CLOSE
 key 161   MEDIA_EJECT
@@ -197,7 +200,10 @@ key 168   MEDIA_REWIND
 key 169   CALL
 # key 170 "KEY_ISO"
 key 171   MUSIC
-key 172   HOME              VIRTUAL
+#NUBIA ADD START
+#key 172   HOME
+key 172   HOME    VIRTUAL
+#NUBIA ADD END
 # key 173 "KEY_REFRESH"
 # key 174 "KEY_EXIT"
 # key 175 "KEY_MOVE"

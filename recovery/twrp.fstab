@@ -1,5 +1,5 @@
 /system 	ext4 	/dev/block/platform/msm_sdcc.1/by-name/system 		flags=display="System";flashimg=1
-/data 		ext4 	/dev/block/platform/msm_sdcc.1/by-name/userdata		flags=encryptable=footer;length=-16384
+/data 		ext4 	/dev/block/platform/msm_sdcc.1/by-name/userdata		
 /cache 		ext4 	/dev/block/platform/msm_sdcc.1/by-name/cache		flags=display="Cache"
 /persist 	ext4 	/dev/block/platform/msm_sdcc.1/by-name/persist		flags=display="Persist";backup=1
 /firmware 	vfat 	/dev/block/platform/msm_sdcc.1/by-name/modem		flags=display="Modem";backup=1
@@ -10,5 +10,6 @@
 /modemst2	emmc	/dev/block/platform/msm_sdcc.1/by-name/modemst2		flags=display="NV";backup=1
 /aboot		emmc	/dev/block/platform/msm_sdcc.1/by-name/aboot		flags=display="Bootloader";backup=1
 /splash		emmc	/dev/block/platform/msm_sdcc.1/by-name/splash		flags=display="Splash";backup=1;flashimg=1
-/external_sd	vfat	/dev/block/mmcblk1p1					flags=display="Micro SDcard";storage;wipeingui;removable
-/usbdisk	vfat	/dev/block/sda1						flags=display="USB-OTG";storage;wipeingui;removable
+/internal_sd			auto		/dev/block/mmcblk1p2	/dev/block/mmcblk1	flags=display="MicroSD card Adopted";storage;wipeingui;removable
+/sdcard1                auto            /dev/block/mmcblk1p1    /dev/block/mmcblk1      flags=display="MicroSD card Legacy";storage;wipeingui;removable
+/usbdisk	   auto		 /dev/block/sda1	/dev/block/sda	flags=display="USB-OTG";storage;removable

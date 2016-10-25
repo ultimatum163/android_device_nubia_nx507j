@@ -16,7 +16,9 @@
 
 package org.cyanogenmod.hardware;
 
-import org.cyanogenmod.internal.util.FileUtils;
+import org.cyanogenmod.hardware.util.FileUtils;
+
+import java.io.File;
 
 /*
  * Disable capacitive keys
@@ -32,7 +34,7 @@ public class KeyDisabler {
     private static String CONTROL_PATH = "/data/tp/keypad_enable";
 
     public static boolean isSupported() {
-        return FileUtils.isFileWritable(CONTROL_PATH);
+        return new File(CONTROL_PATH).exists();
     }
 
     public static boolean isActive() {

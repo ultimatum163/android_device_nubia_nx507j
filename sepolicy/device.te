@@ -1,2 +1,0 @@
-type ir_device, dev_type;
-type bcmnfc_device, dev_type;
