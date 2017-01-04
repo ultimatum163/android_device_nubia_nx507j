@@ -1,2 +1,0 @@
-#============= platform_app ==============
-allow platform_app self:netlink_kobject_uevent_socket { bind create read setopt };

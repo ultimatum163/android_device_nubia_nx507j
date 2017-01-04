@@ -17,16 +17,16 @@
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
 
-#define BLUETOOTH_QTI_SW TRUE
+#define BLUETOOTH_QTI_SW     TRUE
 
-#define BTM_DEF_LOCAL_NAME   "ZTE NUBIA NX507J"
+#define BTM_DEF_LOCAL_NAME   "Nubia Z7 Mini"
 // Disables read remote device feature
 #define BTA_SKIP_BLE_READ_REMOTE_FEAT FALSE
-#define MAX_L2CAP_CHANNELS    16
-#define BLE_VND_INCLUDED   TRUE
+#define MAX_L2CAP_CHANNELS 16
+#define BLE_VND_INCLUDED TRUE
 // skips conn update at conn completion
-#define BTA_BLE_SKIP_CONN_UPD  FALSE
-#define BLE_PERIPHERAL_ADV_NAME  FALSE
+#define BTA_BLE_SKIP_CONN_UPD FALSE
+#define BLE_PERIPHERAL_ADV_NAME FALSE
 #define BT_CLEAN_TURN_ON_DISABLED 1
 
 /* Defined if the kernel does not have support for CLOCK_BOOTTIME_ALARM */

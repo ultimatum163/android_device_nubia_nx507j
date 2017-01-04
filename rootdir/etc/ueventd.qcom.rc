@@ -97,6 +97,7 @@
 /dev/media*               0660   system     camera
 /dev/v4l-subdev*          0660   system     camera
 /dev/qseecom              0660   system     drmrpc
+/dev/pft                  0660   system     drmrpc
 /dev/gemini0              0660   system     camera
 /dev/jpeg0                0660   system     camera
 /dev/jpeg1                0660   system     camera
@@ -149,6 +150,7 @@
 /dev/ttyGS0               0660   system     system
 /dev/i2c-5                0660   media       media
 /dev/voice_svc            0660   system     audio
+/dev/avtimer              0660   system     audio
 
 # DVB devices
 /dev/dvb/adapter0/demux*  0440   media       media
@@ -180,7 +182,6 @@
 /dev/uio0                 0660   system     system
 /dev/uio1                 0660   system     system
 /dev/uio2                 0660   system     system
-/dev/bcm2079x 0660 nfc nfc
 
 # drv2605 LRA vibrator
 /dev/drv2605              0660   system     system

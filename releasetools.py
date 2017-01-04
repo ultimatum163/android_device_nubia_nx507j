@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """Emit commands needed for ZTE devices during OTA installation
-(installing the aboot/modem/rpm/sbl1/tz/splash)."""
+(installing the aboot/modem/rpm/sbl1/tz/splash images)."""
 
 import common
 import re

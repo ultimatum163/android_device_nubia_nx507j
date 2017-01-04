@@ -75,7 +75,6 @@ PRODUCT_PACKAGES += \
     audio.primary.msm8974 \
     audio.r_submix.default \
     audio.usb.default \
-    libaudio-resampler \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
@@ -93,6 +92,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libxml2 \
     camera.msm8974 \
+    libshim_camera \
     Snap
 
 # Connectivity Engine support
@@ -130,12 +130,8 @@ PRODUCT_PACKAGES += \
     FM2 \
     libqcomfm_jni \
     qcom.fmradio
-
-# LOWI
-PRODUCT_COPY_FILES += \
-   $(LOCAL_PATH)/etc/lowi.conf:system/etc/lowi.conf
-
-# IPC router config 
+    
+# IRSC
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/etc/sec_config:system/etc/sec_config
 
@@ -157,6 +153,7 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     $(LOCAL_PATH)/etc/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/etc/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
     $(LOCAL_PATH)/etc/media_profiles.xml:system/etc/media_profiles.xml
 
 # WiFi
@@ -169,9 +166,7 @@ PRODUCT_COPY_FILES += \
 # OMX
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
-    libdashplayer \
     libdivxdrmdecrypt \
-    libextmedia_jni \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
@@ -179,22 +174,15 @@ PRODUCT_PACKAGES += \
     libOmxQcelp13Enc \
     libOmxVdec \
     libOmxVenc \
-    libOmxVidcCommon \
-    libqcmediaplayer \
     libstagefrighthw \
-    libstagefright_soft_flacdec \
-    qcmediaplayer
-
-#PRODUCT_BOOT_JARS += \
-#    qcmediaplayer
 
 # Power
 PRODUCT_PACKAGES += \
     power.msm8974
 
-#enable/disable softkey script
-#PRODUCT_COPY_FILES += \
-#    $(LOCAL_PATH)/etc/set_softkey.sh:system/bin/set_softkey.sh
+# Doze mode
+PRODUCT_PACKAGES += \
+    NubiaDoze
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -207,9 +195,12 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.sh \
     ueventd.qcom.rc 
 
-# Gello
+# for nubia camera app
 PRODUCT_PACKAGES += \
-    Gello
+    libshim_nubia
+
+PRODUCT_PACKAGES += \
+    libshim_wvm
 
 # Thermal config
 PRODUCT_COPY_FILES += \
@@ -256,22 +247,30 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libion
 
-# GPS configuration
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/etc/flp.conf:system/etc/flp.conf \
-    $(LOCAL_PATH)/etc/gps.conf:system/etc/gps.conf \
-    $(LOCAL_PATH)/etc/izat.conf:system/etc/izat.conf \
-    $(LOCAL_PATH)/etc/quipc.conf:system/etc/quipc.conf \
-    $(LOCAL_PATH)/etc/sap.conf:system/etc/sap.conf 
+# GPS
+PRODUCT_PACKAGES += \
+    gps.msm8974
 
-# etc
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/flp.conf:system/etc/flp.conf \
+    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
+    $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
+    $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf
+
+# Bluetooth configuration
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/bluetooth/data/audio.conf:system/etc/bluetooth/audio.conf \
     $(LOCAL_PATH)/bluetooth/data/auto_pairing.conf:system/etc/bluetooth/auto_pairing.conf \
     $(LOCAL_PATH)/bluetooth/data/blacklist.conf:system/etc/bluetooth/blacklist.conf \
     $(LOCAL_PATH)/bluetooth/data/input.conf:system/etc/bluetooth/input.conf \
     $(LOCAL_PATH)/bluetooth/data/main.conf:system/etc/bluetooth/main.conf \
-    $(LOCAL_PATH)/bluetooth/data/network.conf:system/etc/bluetooth/network.conf \
+    $(LOCAL_PATH)/bluetooth/data/network.conf:system/etc/bluetooth/network.conf 
+
+# etc
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/etc/init.qcom.modem_links.sh:system/etc/init.qcom.modem_links.sh \
+    $(LOCAL_PATH)/etc/usf_post_boot.sh:system/etc/usf_post_boot.sh \
     $(LOCAL_PATH)/etc/bluetooth/bt_did.conf:system/etc/bluetooth/bt_did.conf \
     $(LOCAL_PATH)/etc/bluetooth/bt_stack.conf:system/etc/bluetooth/bt_stack.conf \
     $(LOCAL_PATH)/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
