@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014 The CyanogenMod Project
+#           (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -60,6 +60,9 @@ TARGET_KRAIT_BIONIC_PLDTHRESH := 10
 TARGET_KRAIT_BIONIC_BBTHRESH := 64
 TARGET_KRAIT_BIONIC_PLDSIZE := 64
 
+# Shutdown
+TARGET_INIT_UMOUNT_AND_FSCK_IS_UNSAFE := true
+ 
 # Kernel
 BOARD_DTBTOOL_ARGS := --force-v2
 BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=23 msm_rtb.filter=0x37 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissive
@@ -70,7 +73,7 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-cortex_a15-linux-gnueabihf-linaro_4.9/bin/arm-cortex_a15-linux-gnueabihf-
 TARGET_KERNEL_SOURCE := kernel/nubia/nx507j
 TARGET_KERNEL_ARCH := arm
-TARGET_KERNEL_CONFIG := cm-nx507j_nomodules_defconfig
+TARGET_KERNEL_CONFIG := lineage_nx507j_defconfig
 TARGET_ZTEMT_DTS := true
 
 # Power
@@ -78,15 +81,18 @@ TARGET_POWERHAL_VARIANT := qcom
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
+AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := false
 AUDIO_FEATURE_ENABLED_NEW_SAMPLE_RATE := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
-AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
-AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
-AUDIO_FEATURE_ENABLED_LOW_LATENCY_CAPTURE := true
+#AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
+#AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
+#AUDIO_FEATURE_ENABLED_LOW_LATENCY_CAPTURE := true
 AUDIO_FEATURE_ENABLED_HWDEP_CAL := true
+AUDIO_FEATURE_ENABLED_FLUENCE := true
 USE_CUSTOM_AUDIO_POLICY := 1
 
 # FM
+BOARD_HAVE_QCOM_FM := true
 AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
 
 # Bluetooth

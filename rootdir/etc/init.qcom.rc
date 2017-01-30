@@ -175,7 +175,7 @@ on boot
     write /sys/bus/msm_subsys/devices/subsys2/restart_level "related"
 
     # Adaptive LMK
-    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 0
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 53059
 
 on post-fs-data
@@ -421,7 +421,7 @@ on post-fs-data
 	chmod 0664 /sys/class/timed_output/vibrator/vtg_level
 
 #ZTEMT enable detceting 9V charger 
-    setprop persist.usb.hvdcp.detect false
+    setprop persist.usb.hvdcp.detect true
 
 # ADDED BY ZTEMT ZhuBing
 	chown root system /sys/class/leds/red/brightness
@@ -477,7 +477,7 @@ service netmgrd /system/bin/netmgrd
 
 # QCOM sensor
 service sensors /system/bin/sensors.qcom
-    class late_start
+    class main
     user root
     group root wakelock
 
@@ -526,11 +526,11 @@ service wpa_supplicant /system/bin/wpa_supplicant \
 
 service loc_launcher /system/bin/loc_launcher
     #loc_launcher will start as root and set its uid to gps
-    class late_start
+    class main
     group gps qcom_oncrpc inet net_raw diag qcom_diag net_admin wifi
 
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
-    class late_start
+    class main
     user root
     group system fm_radio
     disabled
@@ -547,7 +547,6 @@ service charger /sbin/healthd -c
     seclabel u:r:healthd:s0
 
 service qbcharger /charger -m 1
-    disabled
     oneshot
     seclabel u:r:healthd:s0
 
@@ -558,7 +557,7 @@ on property:sys.qbcharger.enable=false
     stop qbcharger
 
 service qcamerasvr /system/bin/mm-qcamera-daemon
-    class late_start
+    class main
     user camera
     group camera system inet input graphics
 
@@ -566,9 +565,8 @@ service mpdecision /system/bin/mpdecision --avg_comp
    class main
    user root
    group root readproc
-   disabled
 
-service thermal-engine /system/vendor/bin/thermal-engine --config /system/etc/thermal-engine-8974pro.conf
+service thermal-engine /system/vendor/bin/thermal-engine --config /system/etc/thermal-engine-8974.conf
    class main
    user root
    group root
@@ -577,7 +575,7 @@ service thermal-engine /system/vendor/bin/thermal-engine --config /system/etc/th
    socket thermal-recv-passive-client stream 0666 system system
 
 service time_daemon /system/bin/time_daemon
-    class late_start
+    class main
     user root
     group root
 
@@ -599,18 +597,18 @@ service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     oneshot
 
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
-    class late_start
+    class main
     user bluetooth
     group bluetooth net_bt_admin qcom_diag diag radio
     disabled
     oneshot
 
 service cnd /system/bin/cnd
-    class late_start
+    class main
     socket cnd stream 660 root inet
 
 service dpmd /system/bin/dpmd
-    class late_start
+    class main
     socket dpmd stream 660 root system
 
 on property:bluetooth.hciattach=true
@@ -625,7 +623,7 @@ service adsprpcd /system/bin/adsprpcd
    group media
 
 service audiod /system/bin/audiod
-   class late_start
+   class main
    user system
    group system
 
@@ -643,7 +641,7 @@ on property:init.svc.surfaceflinger=running
 
 # diag logging
 service diag_mdlog_start /system/bin/diag_mdlog
-    class late_start
+    class main
     user shell
     group system qcom_diag diag sdcard_rw sdcard_r media_rw
     disabled
@@ -653,7 +651,6 @@ service diag_mdlog_stop /system/bin/diag_mdlog -k
     class late_start
     user shell
     group system qcom_diag diag sdcard_rw sdcard_r media_rw
-    disabled
     oneshot
 
 service qlogd /system/xbin/qlogd
@@ -665,8 +662,7 @@ on property:persist.sys.qlogd=0
     stop qlogd
 
 service ssr_diag /system/bin/ssr_diag
-    class late_start
-    disabled
+    class main
     user system
     group system
 

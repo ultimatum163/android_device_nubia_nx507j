@@ -95,8 +95,6 @@ vendor/lib/libsmemlog.so
 vendor/lib/libqmi_client_helper.so
 
 # RIL
--priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
--app/shutdownlistener/shutdownlistener.apk
 bin/netmgrd
 bin/qmuxd
 bin/radish
@@ -124,9 +122,8 @@ vendor/lib/libsensor_reg.so
 
 # Thermal & Perf
 bin/mpdecision
-vendor/lib/libqc-opt.so
 vendor/lib/libqti-perfd-client.so
-bin/thermal-engine
+vendor/bin/thermal-engine
 vendor/lib/libthermalclient.so
 vendor/lib/libthermalioctl.so
 
@@ -144,3 +141,11 @@ etc/firmware/venus.b03
 etc/firmware/venus.b04
 etc/firmware/venus.mbn
 etc/firmware/venus.mdt
+
+# CNE
+vendor/lib/libcne.so
+vendor/lib/libcneapiclient.so
+vendor/lib/libcneconn.so
+vendor/lib/libcneqmiutils.so
+vendor/lib/libNimsWrap.so
+vendor/lib/libvendorconn.so
